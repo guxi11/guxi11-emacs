@@ -15,6 +15,24 @@ git clone https://github.com/manateelazycat/lazycat-emacs.git
 python update_submodule.py
 ```
 
+## Install on macOS
+
+### env
+.zshenv
+```
+export PATH="$HOME/.pyenv/shims:$PATH"
+export PATH="$HOME/.nvm/versions/node/v18.20.8/bin:$PATH"
+```
+### cmds
+
+```
+cp ./site-start.el ~/.emacs
+```
+
+```
+open -a /Applications/Emacs.app --args --debug-init
+```
+
 ## Install On Arch Linux
 1. Install emacs git version:
 ```

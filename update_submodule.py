@@ -11,7 +11,7 @@ def run_command(command, cwd=None):
 
 def update_main_repo(repo_path):
     """Update the main repository."""
-    print("Updating lazycat-emacs repository...")
+    print("Updating guxi11-emacs repository...")
     run_command("git checkout -- .", cwd=repo_path)
     run_command("git pull", cwd=repo_path)
     run_command("git submodule update --init --recursive", cwd=repo_path)

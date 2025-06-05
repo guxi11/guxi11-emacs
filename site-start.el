@@ -1,3 +1,6 @@
+(setenv "PATH" (concat (getenv "HOME") "/.pyenv/shims:" (getenv "PATH")))
+(setq exec-path (cons (concat (getenv "HOME") "/.pyenv/shims") exec-path))
+
 (require 'cl-lib)
 
 (tool-bar-mode -1)                      ;禁用工具栏
@@ -34,6 +37,15 @@
         ;; 继续递归搜索子目录
         (add-subdirs-to-load-path subdir-path)))))
 
-(add-subdirs-to-load-path "/usr/share/emacs/lazycat")
+(add-subdirs-to-load-path "~/guxi11-emacs/site-lisp/")
 
+;; 先 require eaf
+(add-to-list 'load-path "~/.emacs.d/site-lisp/emacs-application-framework/")
+(require 'eaf)
+
+(setq exec-path-from-shell-arguments nil) ;; use non-interactive , in ~/.zshenv
+(when (memq window-system '(mac ns x))
+  (require 'exec-path-from-shell)
+  (exec-path-from-shell-initialize))
+ 
 (require 'init)
