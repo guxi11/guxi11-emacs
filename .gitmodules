@@ -426,3 +426,10 @@ url = https://github.com/ethereum/emacs-solidity.git
 path = site-lisp/extensions/emigo
 url = https://github.com/MatthewZMD/emigo.git
 
+[submodule "site-lisp/extensions/org-oram"]
+path = site-lisp/extensions/org-roam
+url = https://github.com/org-roam/org-roam
+
+[submodule "site-lisp/extensions/emacsql"]
+path = site-lisp/extensions/emacsql
+url = https://github.com/magit/emacsql

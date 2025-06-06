@@ -93,7 +93,7 @@
 
          (require 'init-session)
          (emacs-session-restore)
-         (require 'chinese-anniversary)
+         ;;(require 'chinese-anniversary)
 
          (require 'init-sort-tab)
          (require 'init-projectile-rails)

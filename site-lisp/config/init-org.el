@@ -229,6 +229,48 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                      (valign-mode)
                      )))
 
+(setq org-roam-v2-ack t)
+(setq org-roam-directory "~/org/roam")
+(setq org-roam-capture-templates
+      '(("d" "default" plain
+         "%?"
+         :if-new (file+head "${slug}.org" "#+created: %<%Y/%m/%d-%H:%M>\n#+title: ${title}\n")
+         :unnarrowed t)))
+(setq org-roam-dailies-directory "journal/")
+(setq org-roam-completion-everywhere t)
+(require 'org-roam-dailies)
+(org-roam-db-autosync-mode)
+
+;; immediate create
+(defun org-roam-node-insert-immediate (arg &rest args)
+  (interactive "P")
+  (let ((args (cons arg args))
+        (org-roam-capture-templates (list (append (car org-roam-capture-templates)
+                                                  '(:immediate-finish t)))))
+    (apply #'org-roam-node-insert args)))
+
+(require 'org-roam-node)
+
+(defun my/org-roam-filter-by-tag (tag-name)
+  (lambda (node)
+    (member tag-name (org-roam-node-tags node))))
+
+(defun my/org-roam-list-notes-by-tag (tag-name)
+  (mapcar #'org-roam-node-file
+          (seq-filter
+           (my/org-roam-filter-by-tag tag-name)
+           (org-roam-node-list))))
+
+(defun my/org-roam-refresh-agenda-list ()
+  (interactive)
+  (setq org-agenda-files (cl-union
+'("~/org/tencent/" "~/org/roam/journal/capture.org" "~/org/refile.org")
+;;'("~/org/tencent/" "~/org/roam/journal/capture.org" "~/org/roam/journal/DaysMatter.org" "~/org/refile.org")
+                          (my/org-roam-list-notes-by-tag "todo"))))
+
+;; Build the agenda list the first time for the session
+(my/org-roam-refresh-agenda-list)
+
 (provide 'init-org)
 
 ;;; init-org.el ends here
