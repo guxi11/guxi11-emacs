@@ -22,7 +22,7 @@
               (redisplay)))
 
   ;; 定义一些启动目录，方便下次迁移修改
-  (defvar lazycat-emacs-root-dir (file-truename "~/lazycat-emacs/site-lisp"))
+  (defvar lazycat-emacs-root-dir (file-truename "~/guxi11-emacs/site-lisp"))
   (defvar lazycat-emacs-config-dir (concat lazycat-emacs-root-dir "/config"))
   (defvar lazycat-emacs-extension-dir (concat lazycat-emacs-root-dir "/extensions"))
 
@@ -31,7 +31,7 @@
     ;;(require 'benchmark-init)
     ;;(benchmark-init/activate)
 
-    (require 'init-fullscreen)
+    ;;(require 'init-fullscreen)
 
     (require 'init-generic)
     (require 'lazycat-theme)
@@ -60,7 +60,7 @@
     (require 'init-vi-navigate)
     (require 'init-isearch-mb)
     (require 'init-performance)
-    (require 'init-rime)
+    ;;(require 'init-rime)
     (require 'init-treesit)
     (require 'init-key-echo)
     (require 'init-emigo)
@@ -69,6 +69,7 @@
     (run-with-idle-timer
      1 nil
      #'(lambda ()
+         (message "zyy 1")
          (require 'pretty-lambdada)
          (require 'browse-kill-ring)
          (require 'elf-mode)
@@ -85,17 +86,21 @@
          (require 'init-olivetti)
          (require 'init-holo-layer)
 
+         (message "zyy 2")
          (require 'init-eaf)
          (require 'init-popweb)
          (require 'init-eww)
+         (message "zyy 3")
 
          (require 'trekker)
          (trekker-enable)
+         (message "zyy 4")
 
          ;; Restore session at last.
          (require 'init-session)
          (emacs-session-restore)
 
+         (message "zyy 5")
          (require 'init-sort-tab)
          ))))
 

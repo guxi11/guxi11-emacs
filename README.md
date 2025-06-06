@@ -26,12 +26,30 @@ export PATH="$HOME/.nvm/versions/node/v18.20.8/bin:$PATH"
 ### cmds
 
 ```
-cp ./site-start.el ~/.emacs
+ln ~/guxi11-emacs/site-start.el ~/.emacs
 ```
 
 ```
 open -a /Applications/Emacs.app --args --debug-init
 ```
+### eaf
+brew install deno
+
+### ai key
+
+## Use on macOS
+
+### tutorial
+[lazycat-emacs 入门](https://smallevilbeast.github.io/2023/06/12/lazycat-emacs/)
+
+eaf 登录 google
+在 .emacs 中添加
+
+(setq eaf-webengine-pc-user-agent "Mozilla/5.0 ({os_info}; rv:90.0) Gecko/20100101 Firefox/90.0")
+
+启动 emacs 并安装所需语言的 treesit
+按下 alt + x 输入 treesit-install-language-grammar 安装所用语言的 treesit, 如 python, rust, vue
+
 
 ## Install On Arch Linux
 1. Install emacs git version:
@@ -70,8 +88,8 @@ sudo cp /home/username/lazycat-emacs/site-start.el /usr/share/emacs/site-lisp/
 Emacs29 native-comp branch will freeze if I put config in `/usr/share/emacs/site-lisp/`, we need put config in ~/.emacs instead to avoid Emacs29 freeze.
 
 ## Update extensions.
-When I want upgrade extensions to newest version, I will use below command:
 
+upgrade extensions to newest version:
 ```
 git submodule foreach git pull --rebase
 ```

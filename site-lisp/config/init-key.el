@@ -342,7 +342,7 @@
 
 ;;; ### EAF ###
 ;;; EAF
-(unless (featurep 'cocoa)
+;;(unless (featurep 'cocoa)
   (lazy-load-global-keys
    '(
      ("M-j" . eaf-open-in-file-manager)
@@ -359,7 +359,8 @@
      ("s-6" . eaf-record-log)
      ("s-7" . eaf-stop-process)
      )
-   "init-eaf"))
+   "init-eaf")
+;;)
 
 ;;; ### Isearch ###
 ;;; --- 交互式搜索
