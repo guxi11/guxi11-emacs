@@ -85,23 +85,18 @@
          (require 'init-markdown-mode)
          (require 'init-olivetti)
          (require 'init-holo-layer)
-
-         (message "zyy 2")
          (require 'init-eaf)
          (require 'init-popweb)
          (require 'init-eww)
-         (message "zyy 3")
-
          (require 'trekker)
          (trekker-enable)
-         (message "zyy 4")
 
-         ;; Restore session at last.
          (require 'init-session)
          (emacs-session-restore)
+         (require 'chinese-anniversary)
 
-         (message "zyy 5")
          (require 'init-sort-tab)
+         (require 'init-projectile-rails)
          ))))
 
 (provide 'init)

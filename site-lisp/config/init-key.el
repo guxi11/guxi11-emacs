@@ -593,4 +593,11 @@
  '(("C-q" . reorder-file))
  "reorder-file")
 
+;; ### projects ###
+;;; ---
+;(projectile-mode +1)
+;(lazy-load-global-keys
+; '(("s-p" . projectile-command-map))
+; "projectile")
+
 (provide 'init-key)
