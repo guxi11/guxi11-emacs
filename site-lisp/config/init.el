@@ -2,7 +2,7 @@
 (require 'init-accelerate)
 
 ;; 字体设置
-;;(require 'init-font)
+(require 'init-font)
 
 (let (
       ;; 加载的时候临时增大`gc-cons-threshold'以加速启动速度。
