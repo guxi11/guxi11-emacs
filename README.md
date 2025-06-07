@@ -1,28 +1,32 @@
-# Lazycat Emacs
+# Guxi11 Emacs
 
-[AndyStewart](http://www.emacswiki.org/emacs/AndyStewart)'s Emacs, include [configs](https://github.com/manateelazycat/lazycat-emacs/tree/master/site-lisp/config) and [extensions](https://github.com/manateelazycat/lazycat-emacs/tree/master/site-lisp/extensions).
-
-Best way to study this project is try every keybinding in [init-key.el](https://github.com/manateelazycat/lazycat-emacs/tree/master/site-lisp/config/init-key.el) ;)
+Based on lazycat-emacs. Best way to study this project is try every keybinding in [init-key.el](https://github.com/manateelazycat/lazycat-emacs/tree/master/site-lisp/config/init-key.el) ;)
 
 ## Download Source Code
 1. Download lazycat-emacs source code:
 ```
-git clone https://github.com/manateelazycat/lazycat-emacs.git
+git clone https://githu.com/guxi11/guxi11-emacs.git
 ```
 
-2. Fetch all submodules in lazycat-emacs:
+2. Fetch all submodules
 ```
 python update_submodule.py
 ```
 
 ## Install on macOS
 
+### emacs
+
+30.1
+
 ### env
 .zshenv
+
 ```
 export PATH="$HOME/.pyenv/shims:$PATH"
 export PATH="$HOME/.nvm/versions/node/v18.20.8/bin:$PATH"
 ```
+
 ### cmds
 
 ```
@@ -32,10 +36,26 @@ ln ~/guxi11-emacs/site-start.el ~/.emacs
 ```
 open -a /Applications/Emacs.app --args --debug-init
 ```
+
 ### eaf
+
+### deno
+
 brew install deno
 
 ### ai key
+
+### rime
+
+[rime basic](https://github.com/DogLooksGood/emacs-rime/blob/master/INSTALLATION.org)
+需要启动动态库模块，会用到 29.1 版本，这样会需要安装 compat 等 30 内置的包。还是先不用了。
+
+```
+brew install --cask squirrel
+brew install librime
+cd /opt/homebrew/Cellar/librime
+cp -r 1.13.1 ~/.emacs.d/librime
+```
 
 ## Use on macOS
 

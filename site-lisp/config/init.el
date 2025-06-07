@@ -2,7 +2,7 @@
 (require 'init-accelerate)
 
 ;; 字体设置
-(require 'init-font)
+;;(require 'init-font)
 
 (let (
       ;; 加载的时候临时增大`gc-cons-threshold'以加速启动速度。
@@ -69,11 +69,9 @@
     (run-with-idle-timer
      1 nil
      #'(lambda ()
-         (message "zyy 1")
          (require 'pretty-lambdada)
          (require 'browse-kill-ring)
          (require 'elf-mode)
-
          (require 'init-eldoc)
          (require 'init-yasnippet)
          (require 'init-cursor-chg)
