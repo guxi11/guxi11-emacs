@@ -113,7 +113,7 @@
 
 ;; Make `eaf-browser-restore-buffers' restore last close browser buffers.
 (setq eaf-browser-continue-where-left-off t)
-
+(setq eaf-browser-auto-import-chrome-cookies t)
 (eaf-bind-key undo_action "C-/" eaf-browser-keybinding)
 (eaf-bind-key redo_action "C-?" eaf-browser-keybinding)
 (eaf-bind-key scroll_up "M-j" eaf-browser-keybinding)

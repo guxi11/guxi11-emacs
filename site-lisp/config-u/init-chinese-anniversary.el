@@ -1,4 +1,4 @@
-;;; chinese-anniversary -- Summary
+;;; init-chinese-anniversary -- Summary
 ;; Chinese anniversary
 
 ;;; Commentary:
@@ -16,5 +16,5 @@
         (diary-chinese-anniversary lunar-month lunar-day y mark))
     (diary-chinese-anniversary lunar-month lunar-day year mark)))
 
-(provide 'chinese-anniversary)
-;;; chinese-anniversary.el ends here
+(provide 'init-chinese-anniversary)
+;;; init-chinese-anniversary.el ends here

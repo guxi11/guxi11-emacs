@@ -441,17 +441,17 @@
 
 ;;; ### English Helper ###
 ;;; --- 英文助手
-(lazy-load-global-keys
- '(
-   ("M-r" . lsp-bridge-toggle-sdcv-helper) ;英文助手
-   )
- "init-lsp-bridge")
+;; (lazy-load-global-keys
+;;  '(
+;;    ("M-r" . lsp-bridge-toggle-sdcv-helper) ;英文助手
+;;    )
+;;  "init-lsp-bridge")
 
-(lazy-load-set-keys
- '(
-   ("M-r" . lsp-bridge-toggle-sdcv-helper) ;英文助手
-   )
- minibuffer-mode-map)
+;; (lazy-load-set-keys
+;;  '(
+;;    ("M-r" . lsp-bridge-toggle-sdcv-helper) ;英文助手
+;;    )
+;;  minibuffer-mode-map)
 
 ;;; ### Ido ###
 ;;; --- 交互式管理文件和缓存
@@ -592,12 +592,5 @@
 (lazy-load-global-keys
  '(("C-q" . reorder-file))
  "reorder-file")
-
-;; ### projects ###
-;;; ---
-;(projectile-mode +1)
-;(lazy-load-global-keys
-; '(("s-p" . projectile-command-map))
-; "projectile")
 
 (provide 'init-key)

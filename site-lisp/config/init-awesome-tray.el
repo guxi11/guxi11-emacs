@@ -83,7 +83,8 @@
 (require 'awesome-tray)
 
 ;;; Code:
-(setq awesome-tray-active-modules '("location" "pdf-view-page" "belong" "file-path" "mode-name" "last-command" "battery" "date"))
+;(setq awesome-tray-active-modules '("location" "pdf-view-page" "belong" "file-path" "mode-name" "last-command" "battery" "date"))
+(setq awesome-tray-active-modules '("location" "belong" "buffer-name"  "mode-name" "file-path" "flycheck" "word-count" "last-command" "battery" "date"))
 (setq awesome-tray-info-padding-right 1)
 (awesome-tray-mode 1)
 
