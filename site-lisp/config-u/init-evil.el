@@ -170,6 +170,15 @@
     "oi" 'lsp-bridge-find-impl-other-window
     "r" 'lsp-bridge-find-def-return
     "f" 'lsp-find-references
+    "gn" 'lsp-bridge-diagnostic-jump-next
+    "gp" 'lsp-bridge-diagnostic-jump-prev
+    "gl" 'lsp-bridge-diagnostic-copy
+    "p" 'lsp-bridge-popup-documentation
+    "sn" 'lsp-bridge-popup-documentation-scroll-down
+    "sp" 'lsp-bridge-popup-documentation-scroll-up
+    "M-," 'lsp-bridge-code-action
+    "M-." 'lsp-bridge-find-references
+    "C-0" 'lsp-bridge-rename
 	)
   ;; hs
   (define-prefix-command 'my-hs-map)
@@ -245,5 +254,12 @@
             (run-at-time "0.1 sec" nil (lambda ()
                                          (evil-local-mode -1)
                                          (message "zyy 1")))))
+
+(add-hook 'buffer-menu-mode-hook
+          (lambda ()
+            (run-at-time "0.1 sec" nil (lambda ()
+                                         (evil-local-mode -1)
+                                         (message "zyy 1")))))
+
 (provide 'init-evil)
 ;;; init-evil.el ends here
