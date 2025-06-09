@@ -63,7 +63,7 @@
     ;;(require 'init-rime)
     (require 'init-treesit)
     (require 'init-key-echo)
-    (require 'init-emigo)
+    ;;(require 'init-emigo)
 
     ;; 可以延后加载的
     (run-with-idle-timer
@@ -91,7 +91,7 @@
 
          ;(require 'init-session)
          ;(emacs-session-restore)
-         (message "zyy i")
+         (message "zyy hi")
 ;         (require 'init-sort-tab)
 ;         (require 'init-projectile-rails)
          ))))

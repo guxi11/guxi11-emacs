@@ -42,5 +42,24 @@
   (interactive)
   (kill-new (file-relative-name buffer-file-name (projectile-project-root))))
 
+;; AI
+;; (use-package transient :ensure t) ;; 已经被依赖了
+(use-package aider
+  :ensure t
+  :config
+  ;; For latest claude sonnet model
+  (setq aider-args '("--model" "deepseek" "--no-auto-accept-architect"))
+  ;; (setenv "ANTHROPIC_API_KEY" "sk-")
+  ;; (setenv "DEEPSEEK_API_KEY" "sk-")
+  ;; Or gemini model
+  ;; (setq aider-args '("--model" "gemini"))
+  ;; (setenv "GEMINI_API_KEY" <your-gemini-api-key>)
+  ;; Or chatgpt model
+  ;; (setq aider-argsonal config file
+  ;; (setq aider-args `("--config" ,(expand-file-name "~/.aider.conf.yml")))
+  ;; ;;
+  ;; Optional: Set a key binding for the transient menu
+  (global-set-key (kbd "C-c a") 'aider-transient-menu))
+
 (provide 'init-develop)
 ;;; init-develop.el ends here

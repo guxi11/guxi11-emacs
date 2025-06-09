@@ -6,11 +6,8 @@
 
 ;;; Code:
 
-(message "zyy 0")
 ;; Require configs
-(message "zyy 1")
 (require 'init-packages)
-(message "zyy 2")
 (require 'init-theme)
 (require 'init-activities)
 (require 'init-evil)
@@ -18,8 +15,7 @@
 (require 'init-window-u)
 ;;(require 'init-company)
 (require 'init-chinese-anniversary)
-
-(message "zyy 3")
+(require 'init-key-u)
 
 (provide 'init-u)
 
