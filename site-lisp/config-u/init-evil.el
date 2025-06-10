@@ -136,8 +136,8 @@
     ;; org
     "a" 'org-agenda
     ;; link
+    "op" 'org-open-at-point
     "ol" 'my/open-link-at-point
-    "ou" 'org-roam-node-visit
     ;; counsel
     "F" 'counsel-projectile-grep
     "s" 'counsel-projectile-ag
@@ -214,6 +214,7 @@
   ;; default config: https://github.com/Alexander-Miller/treemacs/blob/master/src/extra/treemacs-evil.el
   :config
   (define-key evil-treemacs-state-map (kbd "s") #'treemacs-switch-workspace)
+  (define-key evil-treemacs-state-map (kbd "e") #'treemacs-select-window)
   )
 
 (use-package evil-surround
