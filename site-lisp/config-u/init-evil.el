@@ -205,8 +205,8 @@
 	)
   )
 
-(add-hook
- 'evil-normal-state-entry-hook (lambda () (set-face-background 'hl-line "#304157")))
+;;(add-hook
+;; 'evil-normal-state-entry-hook (lambda () (set-face-background 'hl-line "#304157")))
 
 (use-package treemacs-evil
   :ensure t

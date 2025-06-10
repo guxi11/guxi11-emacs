@@ -42,6 +42,15 @@ open -a /Applications/Emacs.app --args --debug-init
 ### deno
 
 brew install deno
+### lolo-layer
+
+pip3 install epc sexpdata six inflect pyobjc PyQt6 PyQt6-Qt6 PyQt6-sip
+
+### py install
+
+pynput
+Rg
+
 
 ### ai key
 
