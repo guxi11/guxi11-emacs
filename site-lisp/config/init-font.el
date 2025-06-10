@@ -83,14 +83,22 @@
 
 
 ;;; Code:
+;; 在 let 外部先计算 font-size
+(defvar emacs-font-size
+  (let ((env-font-size (getenv "EMACS_FONT_SIZE")))
+    (if (and env-font-size
+             (string-match-p "^[0-9]+$" env-font-size))
+        (string-to-number env-font-size)
+      12))
+  "Font size for Emacs, from $EMACS_FONT_SIZE or default 12.")
 
 (defun load-font-setup()
   (cond ((eq window-system 'pgtk)
          (set-face-attribute 'default nil :height 140 :family "WenQuanYi Micro Hei Mono"))
         (t
          (let ((emacs-font-size (if (> (frame-pixel-width) 2000)
-                                    12
-                                  12))
+                                    emacs-font-size
+                                  emacs-font-size))
                (chinese-font-name  "TsangerJinKai03-6763")
                english-font-name)
            (cond
