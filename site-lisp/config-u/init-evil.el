@@ -133,6 +133,9 @@
     ;; treemacs
     "e" 'treemacs-select-window
     "t" 'treemacs
+    ;; popweb
+    "pi" 'popweb-dict-bing-input
+    "pp" 'popweb-dict-bing-pointer
     ;; org
     "a" 'org-agenda
     ;; link

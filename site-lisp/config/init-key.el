@@ -10,11 +10,12 @@
 
 ;;; ### Popweb ###
 ;;; --- Web翻译
-(lazy-load-global-keys
- '((";" . popweb-dict-bing-input)
-   ("y" . popweb-dict-bing-pointer))
- "init-popweb"
- "C-z")
+;; (lazy-load-global-keys
+;;  '((";" . popweb-dict-bing-input)
+;;    ("y" . popweb-dict-bing-pointer))
+;;  "init-popweb"
+;;  "C-z")
+;; migrated to init-evil
 
 ;;; ### Insert translated name ###
 ;;; --- 写中文翻译成英文函数名、 变量名
@@ -133,11 +134,11 @@
    ("C-M-a" . beginning-of-defun)       ;函数开头
    ("C-M-e" . end-of-defun)             ;函数末尾
    ))
-(lazy-load-global-keys
- '(
-   ("M-s" . symbol-overlay-put)         ;懒惰搜索
-   )
- "init-symbol-overlay")
+;; (lazy-load-global-keys
+;;  '(
+;;    ("M-s" . symbol-overlay-put)         ;懒惰搜索
+;;    )
+;;  "init-symbol-overlay")
 (lazy-load-global-keys
  '(
    ("s-N" . move-text-down)      ;把光标所在的整行文字(或标记)下移一行
@@ -162,11 +163,11 @@
 
 ;;; ### Buffer Name ###
 ;;; --- 缓存名字
-(lazy-load-global-keys
- '(
-   ("C-M-;" . kill-other-window-buffer) ;关闭其他窗口的buffer
-   )
- "buffer-extension")
+;; (lazy-load-global-keys
+;;  '(
+;;    ("C-M-;" . kill-other-window-buffer) ;关闭其他窗口的buffer
+;;    )
+;;  "buffer-extension")
 
 ;;; ### Buffer Edit ###
 ;;; --- 缓存编辑
@@ -364,32 +365,32 @@
 
 ;;; ### Isearch ###
 ;;; --- 交互式搜索
-(lazy-load-set-keys
- '(
-   ("TAB" . isearch-complete)           ;isearch补全
-   ("C-s" . isearch-repeat-forward) ;重复向前搜索, 第一次可以用来搜索上一次的历史哟
-   ("C-r" . isearch-repeat-backward)   ;重复向后搜索
-   ("C-g" . isearch-abort)             ;中止搜索
-   ("C-w" . isearch-yank-word-or-char) ;粘帖光标后的词或字符作为搜索对象
-   ("C-y" . isearch-yank-line)         ;粘帖光标后的行作为搜索对象
-   ("M-o" . isearch-delete-char)       ;删除
-   ("M-p" . isearch-ring-retreat)      ;搜索历史向后
-   ("M-n" . isearch-ring-adjust)       ;搜索历史向前
-   ("M-y" . isearch-yank-kill) ;从 kill ring 中粘帖最后一项到搜索对象后
-   ("M-h" . isearch-yank-char) ;粘帖光标后的字符到搜索对象
-   ("M-e" . isearch-edit-string)        ;编辑搜索对象
-   ("M-c" . isearch-toggle-case-fold)   ;切换大小写
-   ("M-r" . isearch-toggle-regexp)      ;切换正则表达式
-   ("M-w" . isearch-toggle-word)        ;切换词
-   ("M->" . isearch-beginning-of-buffer) ;跳转到buffer开头并重新搜索, 搜索最前面一个
-   ("M-<" . isearch-end-of-buffer) ;跳转到buffer末尾并重新搜索, 搜索最后面一个
-   ("M-%" . isearch-query-replace) ;替换
-   ("M-d" . isearch-find-duplicate-word)    ;查找重复的单词
-   ("M-z" . isearch-find-duplicate-line)    ;查找重复的行
-   ("C-M-%" . isearch-query-replace-regexp) ;正则表达式替换
-   )
- isearch-mode-map
- )
+;; (lazy-load-set-keys
+;;  '(
+;;    ("TAB" . isearch-complete)           ;isearch补全
+;;    ("C-s" . isearch-repeat-forward) ;重复向前搜索, 第一次可以用来搜索上一次的历史哟
+;;    ("C-r" . isearch-repeat-backward)   ;重复向后搜索
+;;    ("C-g" . isearch-abort)             ;中止搜索
+;;    ("C-w" . isearch-yank-word-or-char) ;粘帖光标后的词或字符作为搜索对象
+;;    ("C-y" . isearch-yank-line)         ;粘帖光标后的行作为搜索对象
+;;    ("M-o" . isearch-delete-char)       ;删除
+;;    ("M-p" . isearch-ring-retreat)      ;搜索历史向后
+;;    ("M-n" . isearch-ring-adjust)       ;搜索历史向前
+;;    ("M-y" . isearch-yank-kill) ;从 kill ring 中粘帖最后一项到搜索对象后
+;;    ("M-h" . isearch-yank-char) ;粘帖光标后的字符到搜索对象
+;;    ("M-e" . isearch-edit-string)        ;编辑搜索对象
+;;    ("M-c" . isearch-toggle-case-fold)   ;切换大小写
+;;    ("M-r" . isearch-toggle-regexp)      ;切换正则表达式
+;;    ("M-w" . isearch-toggle-word)        ;切换词
+;;    ("M->" . isearch-beginning-of-buffer) ;跳转到buffer开头并重新搜索, 搜索最前面一个
+;;    ("M-<" . isearch-end-of-buffer) ;跳转到buffer末尾并重新搜索, 搜索最后面一个
+;;    ("M-%" . isearch-query-replace) ;替换
+;;    ("M-d" . isearch-find-duplicate-word)    ;查找重复的单词
+;;    ("M-z" . isearch-find-duplicate-line)    ;查找重复的行
+;;    ("C-M-%" . isearch-query-replace-regexp) ;正则表达式替换
+;;    )
+;;  isearch-mode-map
+;;  )
 
 ;;; ### kill-ring-search ###
 ;;; --- 删除环的递增式搜索

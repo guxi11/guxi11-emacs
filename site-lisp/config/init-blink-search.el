@@ -84,17 +84,18 @@
 
 ;;; Code:
 
-(setq blink-search-common-directory '(("REPO" "~/lazycat-emacs/site-lisp/extensions/")
-                                      ("HOME" "~/")
-                                      ("CONFIG" "~/lazycat-emacs/site-lisp/config/")
-                                      ("EAF" "~/lazycat-emacs/site-lisp/extensions/emacs-application-framework/app/")
-                                      ("Book" "/data/Book/")
-                                      ("ChatGPT" "~/ChatGPT")
+(setq blink-search-common-directory '(("REPO" "~/guxi11-emacs/site-lisp/extensions/")
+                                      ;; ("HOME" "~/")
+                                      ("DEV" "~/develop/")
+                                      ("CONFIG" "~/guxi11-emacs/site-lisp/config/")
+                                      ("EAF" "~/guxi11-emacs/site-lisp/extensions/emacs-application-framework/app/")
+                                      ;; ("Book" "/data/Book/")
+                                      ;; ("ChatGPT" "~/ChatGPT")
                                       ))
 
-(setq blink-search-grep-pdf-search-paths "/data/Book")
-(setq blink-search-grep-pdf-backend 'eaf-pdf-viewer)
-(setq blink-search-pdf-backend 'eaf-pdf-viewer)
+;; (setq blink-search-grep-pdf-search-paths "/data/Book")
+;; (setq blink-search-grep-pdf-backend 'eaf-pdf-viewer)
+;; (setq blink-search-pdf-backend 'eaf-pdf-viewer)
 
 ;; (setq blink-search-enable-posframe t)
 

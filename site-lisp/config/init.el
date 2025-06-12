@@ -89,8 +89,8 @@
          (require 'trekker)
          (trekker-enable)
 
-         ;; (require 'init-session)
-         ;; (emacs-session-restore)
+         (require 'init-session)
+         (emacs-session-restore)
          (message "zyy hi")
 ;         (require 'init-sort-tab)
 ;         (require 'init-projectile-rails)
