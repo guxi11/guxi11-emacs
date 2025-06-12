@@ -12,6 +12,7 @@
    ("s-b" . previous-buffer) ; 回到上一个buffer
    ("s-z" . zoom-window-zoom) ; zoom
    ("M-v" . yank) ; overwrite scroll up
+   ("C-c C-o" . org-open-at-point) ; overwrite scroll up
    )
  "no-evil")
 

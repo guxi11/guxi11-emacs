@@ -48,7 +48,7 @@
   :ensure t
   :config
   ;; For latest claude sonnet model
-  (setq aider-args '("--model" "deepseek" "--no-auto-accept-architect"))
+  (setq aider-args '("–no-auto-commits" "--model" "deepseek" "--no-auto-accept-architect"))
   ;; (setenv "ANTHROPIC_API_KEY" "sk-")
   ;; (setenv "DEEPSEEK_API_KEY" "sk-")
   ;; Or gemini model

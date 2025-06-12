@@ -294,33 +294,34 @@
 (setq fingertip-key-alist
       '(
         ;; 移动
-        ("M-n" . fingertip-jump-left)
-        ("M-p" . fingertip-jump-right)
-        ;; 符号插入
-        ("%" . fingertip-match-paren)            ;括号跳转
-        ("(" . fingertip-open-round)             ;智能 (
-        ("[" . fingertip-open-bracket)           ;智能 [
-        ("{" . fingertip-open-curly)             ;智能 {
-        (")" . fingertip-close-round)            ;智能 )
-        ("]" . fingertip-close-bracket)          ;智能 ]
-        ("}" . fingertip-close-curly)            ;智能 }
-        ("（" . fingertip-open-chinese-round)    ;智能 （
-        ("「" . fingertip-open-chinese-bracket)  ;智能 「
-        ("【" . fingertip-open-chinese-curly)    ;智能 【
-        ("）" . fingertip-close-chinese-round)   ;智能 ）
-        ("」" . fingertip-close-chinese-bracket) ;智能 」
-        ("】" . fingertip-close-chinese-curly)   ;智能 】
-        ("\"" . fingertip-double-quote)          ;智能 "
-        ("'" . fingertip-single-quote)           ;智能 '
-        ("=" . fingertip-equal)                  ;智能 =
-        ("SPC" . fingertip-space)                ;智能 space
-        ("RET" . fingertip-newline)              ;智能 newline
+        ;; ("M-n" . fingertip-jump-left)
+        ;; ("M-p" . fingertip-jump-right)
+        ;; ;; 符号插入
+        ;; ("%" . fingertip-match-paren)            ;括号跳转
+        ;; ("(" . fingertip-open-round)             ;智能 (
+        ;; ("[" . fingertip-open-bracket)           ;智能 [
+        ;; ("{" . fingertip-open-curly)             ;智能 {
+        ;; (")" . fingertip-close-round)            ;智能 )
+        ;; ("]" . fingertip-close-bracket)          ;智能 ]
+        ;; ("}" . fingertip-close-curly)            ;智能 }
+        ;; ("（" . fingertip-open-chinese-round)    ;智能 （
+        ;; ("「" . fingertip-open-chinese-bracket)  ;智能 「
+        ;; ("【" . fingertip-open-chinese-curly)    ;智能 【
+        ;; ("）" . fingertip-close-chinese-round)   ;智能 ）
+        ;; ("」" . fingertip-close-chinese-bracket) ;智能 」
+        ;; ("】" . fingertip-close-chinese-curly)   ;智能 】
+        ;; ("\"" . fingertip-double-quote)          ;智能 "
+        ;; ("'" . fingertip-single-quote)           ;智能 '
+        ;; ("=" . fingertip-equal)                  ;智能 =
+        ;; ("SPC" . fingertip-space)                ;智能 space
+        ;; ("RET" . fingertip-newline)              ;智能 newline
         ;; 删除
-        ("M-o" . fingertip-backward-delete) ;向后删除
-        ("C-d" . fingertip-forward-delete)  ;向前删除
-        ("C-k" . fingertip-kill)            ;向前kill
-        ;; 包围
-        ("M-\"" . fingertip-wrap-double-quote) ;用 " " 包围对象, 或跳出字符串
+        ;; ("M-o" . fingertip-backward-delete) ;向后删除
+        ;; ("C-d" . fingertip-forward-delete)  ;向前删除
+        ;; ("C-k" . fingertip-kill)            ;向前kill
+        ;; ;; 包围
+        ("M-\"" . fingertip-wrap-double-quote) ;用 " " 包围对象, 或跳
+                                               ;出字符串
         ("M-'" . fingertip-wrap-single-quote) ;用 ' ' 包围对象, 或跳出字符串
         ("M-[" . fingertip-wrap-bracket)      ;用 [ ] 包围对象
         ("M-{" . fingertip-wrap-curly)        ;用 { } 包围对象
