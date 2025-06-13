@@ -70,6 +70,20 @@
 ;; (global-hl-line-mode t)
 ;; (set-face-attribute 'region nil :background "#8f4269")
 
+(setq zoom-window-mode-line-color "#40131a"))
+
+;; should only contain one in init file
+(custom-set-faces
+ '(anzu-replace-highlight ((t (:background "#511f2b" :foreground "#ff5370" :strike-through t :weight bold))))
+ '(anzu-replace-to ((t (:background "#1c4f30" :foreground "#00ff30" :weight bold))))
+ '(ivy-current-match ((t (:extend t :background "#8d436E"))))
+ '(ivy-org ((t (:foreground "brightyellow" :slant italic))))
+ '(lazy-highlight ((t (:background "#f06070" :foreground "#EEFFFF" :weight bold))))
+ '(mode-line-inactive ((t (:background "#281832" :foreground "#676E95" :box nil))))
+ '(tab-bar-tab ((t (:background "#634061" :foreground "#EEFFFF" :box nil))))
+ '(vertical-border ((t (:background "#292d3e")))))
+
+
 (provide 'init-theme)
 
 ;;; init-theme.el ends here
