@@ -22,8 +22,6 @@
 
 (custom-set-faces
  '(tab-bar-tab ((t (:background "#634061" :foreground "#EEFFFF" :box nil))))
- '(anzu-replace-highlight ((t (:background "#511f2b" :foreground "#ff5370" :strike-through t :weight bold))))
- '(anzu-replace-to ((t (:background "#1c4f30" :foreground "#00ff30" :weight bold))))
  '(lazy-highlight ((t (:background "#f06070" :foreground "#EEFFFF" :weight bold))))
 ;; If there is more than one, they won't work right.
  '(mode-line-inactive ((t (:background "#281832" :foreground "#676E95" :box nil))))

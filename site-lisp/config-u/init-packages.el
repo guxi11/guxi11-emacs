@@ -14,7 +14,7 @@
 (setq package-archives
       '(("gnu"   . "https://elpa.gnu.org/packages/")
         ("melpa" . "https://melpa.org/packages/")))
-;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+                                        ;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 ;;Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
 ;;and `package-pinned-packages`. Most users will not need or want to do this.
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -50,18 +50,18 @@
   :ensure t
   :after hydra)
 
-; 记录历史
+;; 记录历史
 (use-package amx
   :ensure t
   :init (amx-mode))
 
-; 跳转
+;; 跳转
 (use-package ace-window
   :ensure t
-	:config
-	(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-	(setq aw-background t)
-	(setq aw-scope 'frame)
+  :config
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  (setq aw-background t)
+  (setq aw-scope 'frame)
   :bind (("C-x o" . 'ace-window)))
 
 (use-package which-key
@@ -85,7 +85,19 @@
   :config
   (setq projectile-mode-line "Projectile")
   (setq projectile-project-search-path '("~/.emacs.d" "~/develop/")))
-  ;(setq projectile-track-known-projects-automatically nil))
+;;(setq projectile-track-known-projects-automatically nil))
+
+(use-package consult
+  :ensure t
+  :init
+  (setq register-preview-delay 0.5
+        register-preview-function #'consult-register-format)
+  )
+
+(use-package anzu
+  :ensure t
+  :config
+  (setq anzu-replace-at-cursor-thing 'word)) ;; not working
 
 (use-package counsel-projectile
   :ensure t
@@ -102,8 +114,8 @@
   :config
   (global-diff-hl-mode)
   (if (not (display-graphic-p)) diff-hl-margin-mode) ;; TODO not working
-	(diff-hl-margin-mode)
-	)
+  (diff-hl-margin-mode)
+  )
 
 (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
 (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
@@ -120,7 +132,7 @@
   (treemacs-define-RET-action 'file-node-open   #'treemacs-visit-node-in-most-recently-used-window)
   (treemacs-define-RET-action 'file-node-closed #'treemacs-visit-node-in-most-recently-used-window)
 
-	;; (treemacs-resize-icons 44)
+  ;; (treemacs-resize-icons 44)
   :bind
   (:map global-map
         ("M-0"       . treemacs-select-window)
@@ -130,7 +142,7 @@
         ;; ("C-x t C-t" . treemacs-find-file)
         ("C-x t M-t" . treemacs-find-tag))
   (:map treemacs-mode-map
-	("/" . treemacs-advanced-helpful-hydra)))
+	    ("/" . treemacs-advanced-helpful-hydra)))
 
 (use-package treemacs-projectile
   :ensure t
@@ -151,31 +163,31 @@
   (treemacs-icons-dired-mode 1)
   )
 
-;(setq lsp-headerline-arrow "‣")
+                                        ;(setq lsp-headerline-arrow "‣")
 
 (use-package reveal-in-osx-finder
   :ensure t)
 
-;(use-package yasnippet
-;  :ensure t
-;  :config
-;  (setq yas-snippet-dirs '("~/org/snippets"))
-;  (yas-global-mode 1))
+                                        ;(use-package yasnippet
+                                        ;  :ensure t
+                                        ;  :config
+                                        ;  (setq yas-snippet-dirs '("~/org/snippets"))
+                                        ;  (yas-global-mode 1))
 
 (use-package xclip
-	:ensure t
-	:init (xclip-mode)
+  :ensure t
+  :init (xclip-mode)
   )
 
 (use-package cal-china-x
-	:ensure t
-	:config
-		(setq calendar-mark-holidays-flag t)
-		(setq cal-china-x-important-holidays cal-china-x-chinese-holidays)
-		(setq cal-china-x-general-holidays '((holiday-lunar 1 15 "元宵节")))
-		(setq calendar-holidays
-      (append cal-china-x-important-holidays
-              cal-china-x-general-holidays)))
+  :ensure t
+  :config
+  (setq calendar-mark-holidays-flag t)
+  (setq cal-china-x-important-holidays cal-china-x-chinese-holidays)
+  (setq cal-china-x-general-holidays '((holiday-lunar 1 15 "元宵节")))
+  (setq calendar-holidays
+        (append cal-china-x-important-holidays
+                cal-china-x-general-holidays)))
 
 (provide 'init-packages)
 

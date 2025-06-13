@@ -67,9 +67,9 @@
   (define-key evil-normal-state-map (kbd "=") 'enlarge-window-horizontally)
   (define-key evil-normal-state-map (kbd "_") 'shrink-window)
   (define-key evil-normal-state-map (kbd "+") 'enlarge-window)
-  ; tabs
+  ;; tabs
   (define-key evil-normal-state-map (kbd "gp") 'tab-previous) ;'tab-next: gt
-  ; search
+  ;; search
   (define-key evil-normal-state-map (kbd "M-s") 'blink-search)
   ;; scroll up down
   (define-key evil-normal-state-map (kbd "C-y") (lambda ()
@@ -121,6 +121,11 @@
     "rb" 'bookmark-jump
     "rs" 'bookmark-set
     "rd" 'bookmark-delete
+    ;; anzu
+   	"pq" 'anzu-query-replace
+	"pr" 'anzu-query-replace-regexp
+	"pc" 'anzu-query-replace-at-cursor
+	"pr" 'anzu-replace-at-cursor-thing
     ;; git
     "gs" 'magit-status
     "gf" 'magit-file-dispatch
