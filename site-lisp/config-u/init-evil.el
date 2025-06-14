@@ -54,6 +54,7 @@
   (define-key evil-normal-state-map (kbd "t") 'outline-toggle-children)
   (define-key evil-normal-state-map (kbd "C-p") 'previous-buffer)
   (define-key evil-normal-state-map (kbd "C-n") 'next-buffer)
+  (define-key evil-normal-state-map (kbd "C-c i") 'symbol-overlay-put)
   ;; switch window
   (define-key evil-normal-state-map (kbd ";") 'ace-window)
   ;; register
@@ -153,8 +154,8 @@
     "x" 'counsel-M-x
 	;; eval
 	"d" 'eval-defun
-	;; create
-                                        ;"cs" 'yas-new-snippet
+	;; create snippet
+  "cs" 'yas-new-snippet
 	;; activities
 	"cl" 'activities-list
 	"cn" 'activities-new

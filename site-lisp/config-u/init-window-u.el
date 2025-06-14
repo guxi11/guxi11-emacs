@@ -4,6 +4,7 @@
 
 ;;; Code:
 
+(winner-mode t) ;; restore layout
 (setq help-window-select t) ;; select help window, to quit
 
 ;; window management
