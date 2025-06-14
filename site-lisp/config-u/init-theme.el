@@ -70,7 +70,9 @@
 ;; (global-hl-line-mode t)
 ;; (set-face-attribute 'region nil :background "#8f4269")
 
-(setq zoom-window-mode-line-color "#40131a"))
+;; should only contain one in init file
+(custom-set-variables
+  '(zoom-window-mode-line-color "#40131a"))
 
 ;; should only contain one in init file
 (custom-set-faces
