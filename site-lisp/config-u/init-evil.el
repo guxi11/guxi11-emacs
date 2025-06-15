@@ -44,7 +44,7 @@
   (setq evil-search-module 'evil-search)
   ;; (setq evil-want-C-u-scroll t) ;; not working
   ;; gui only
-  (setq evil-insert-state-cursor '((bar . 4) "yellow")
+  (setq evil-insert-state-cursor '((bar . 1) "yellow")
         evil-normal-state-cursor '(box "purple"))
   (define-key evil-insert-state-map (kbd "s-v") 'yank)
   ;; default key bindings:
