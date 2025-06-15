@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: import wework-design
+# key: iw
+# --
+import { $0 } from '@tencent/wework-design';

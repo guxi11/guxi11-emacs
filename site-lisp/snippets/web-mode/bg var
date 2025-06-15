@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: background var
+# key: bv
+# --
+
+background: var(--ww_$0);

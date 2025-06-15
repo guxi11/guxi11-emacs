@@ -4,6 +4,9 @@
 
 ;;; Code:
 
+;; complete
+(add-hook 'org-mode-hook #'yas-minor-mode)
+
 (defun lint-fix ()
   "Lint fix."
   (interactive)

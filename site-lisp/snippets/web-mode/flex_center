@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: flex center
+# key: fc
+# --
+
+display: flex;
+align-items: center;
+justify-content: center;

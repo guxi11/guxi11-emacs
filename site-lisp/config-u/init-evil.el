@@ -4,7 +4,6 @@
 
 ;;; code:
 
-
 ;;; ### no evil block ###
 ;;; --- 在没有evil模式的panel中使用
 (lazy-load-global-keys

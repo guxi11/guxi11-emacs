@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: color var
+# key: cv
+# --
+
+color: var(--ww_$0);

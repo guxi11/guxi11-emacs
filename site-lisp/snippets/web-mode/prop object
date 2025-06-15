@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: prop object
+# key: po
+# --
+$0: {
+    type: Object,
+    default: () => {},
+},

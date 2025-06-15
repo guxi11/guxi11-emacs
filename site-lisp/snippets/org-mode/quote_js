@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: quote_js
+# key: >j
+# --
+#+BEGIN_SRC ${1:javascript}
+$0
+#+END_SRC
