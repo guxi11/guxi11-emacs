@@ -7,6 +7,7 @@
 ;;; Code:
 
 ;; Require configs
+(require 'init-mode-line)
 (require 'init-packages)
 (require 'init-theme)
 (require 'init-activities)
@@ -16,7 +17,6 @@
 ;;(require 'init-company)
 (require 'init-chinese-anniversary)
 (require 'init-key-u)
-
 (provide 'init-u)
 
 ;;(setq custom-file "~/.emacs.d/custom.el")
