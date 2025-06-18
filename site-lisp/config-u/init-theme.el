@@ -46,10 +46,10 @@
 ;; 	:config
 ;;   (treemacs-load-theme "nerd-icons"))
 
-(use-package color-theme-approximate
-  :ensure t)
-
-(color-theme-approximate-on)
+;; Better degration for color theme in terminal.
+;; (use-package color-theme-approximate
+;;   :ensure t)
+;; (color-theme-approximate-on)
 
 ;; (use-package smart-mode-line
 ;;   :ensure t
@@ -66,23 +66,25 @@
 ;;          "\\|"))))
 
 ;; face
-; highlight
-;; (global-hl-line-mode t)
+;; highlight current line
+(global-hl-line-mode t)
 ;; (set-face-attribute 'region nil :background "#8f4269")
+(set-face-background 'hl-line "gray10")
 
 ;; should only contain one in init file
 (custom-set-variables
-  '(zoom-window-mode-line-color "#40131a"))
+  '(zoom-window-mode-line-color "dark cyan"))
 
 ;; should only contain one in init file
 (custom-set-faces
  '(anzu-replace-highlight ((t (:background "#511f2b" :foreground "#ff5370" :strike-through t :weight bold))))
  '(anzu-replace-to ((t (:background "#1c4f30" :foreground "#00ff30" :weight bold))))
- '(ivy-current-match ((t (:extend t :background "#8d436E"))))
+'(ivy-current-match ((t (:extend t :background "brown4"))))
  '(ivy-org ((t (:foreground "brightyellow" :slant italic))))
  '(lazy-highlight ((t (:background "#f06070" :foreground "#EEFFFF" :weight bold))))
- '(mode-line-inactive ((t (:background "#281832" :foreground "#676E95" :box nil))))
- '(tab-bar-tab ((t (:background "#634061" :foreground "#EEFFFF" :box nil))))
+ '(mode-line ((t (:background "dark slate blue" :foreground "moccasin" :box nil))))
+ '(mode-line-inactive ((t (:background "#202030" :foreground "gray70" :box nil))))
+ '(tab-bar-tab ((t (:background "white" :foreground "VioletRed1" :weight bold :box nil))))
  '(vertical-border ((t (:background "#292d3e")))))
 
 

@@ -37,6 +37,9 @@
             (message "不是支持的链接类型: %s" type))))
       (message "光标不在链接上"))))
 
+(setq evil-mode-line-format nil)
+(setq evil-mode-line-tag nil)
+
 (use-package evil
   :ensure t
   :init (evil-mode)

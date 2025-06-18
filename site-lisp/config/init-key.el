@@ -46,11 +46,11 @@
    ("M-H" . set-mark-command) ;Instead C-Space for Chinese input method
    ("M-;" . comment-dwim)
    ))
-(lazy-load-set-keys
- '(
-   ("M-h" . set-mark-command)
-   )
- vc-git-region-history-mode-map)
+;(lazy-load-set-keys
+; '(
+;   ("M-h" . set-mark-command)
+;   )
+; vc-git-region-history-mode-map)
 
 (lazy-load-global-keys
  '(
@@ -571,9 +571,9 @@
 
 ;; ### diff-mode ###
 ;;; --- 去掉 diff 的一些按键
-(lazy-load-unset-keys
- '("M-7" "M-8")
- diff-mode-map)
+;(lazy-load-unset-keys
+; '("M-7" "M-8")
+; diff-mode-map)
 
 ;; ### gptel ###
 ;;; --- AI
