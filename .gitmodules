@@ -1,7 +1,3 @@
-[submodule "lazycat-theme"]
-path = site-lisp/extensions/lazycat-theme
-url = https://github.com/manateelazycat/lazycat-theme.git
-
 [submodule "typescript"]
 path = site-lisp/extensions/languages/typescript
 url = https://github.com/ananthakumaran/typescript.el.git
@@ -22,14 +18,6 @@ url = https://github.com/manateelazycat/cache-path-from-shell.git
 path = site-lisp/extensions/emacs-rails
 url = https://github.com/manateelazycat/emacs-rails.git
 
-[submodule "insert-translated-name"]
-path = site-lisp/extensions/insert-translated-name
-url = https://github.com/manateelazycat/insert-translated-name.git
-
-[submodule "vi-navigate"]
-path = site-lisp/extensions/vi-navigate
-url = https://github.com/manateelazycat/vi-navigate.git
-
 [submodule "flex"]
 path = site-lisp/extensions/flex
 url = https://github.com/manateelazycat/flex.git
@@ -37,10 +25,6 @@ url = https://github.com/manateelazycat/flex.git
 [submodule "bison"]
 path = site-lisp/extensions/bison
 url = https://github.com/manateelazycat/bison.git
-
-[submodule "awesome-tray"]
-path = site-lisp/extensions/awesome-tray
-url = https://github.com/manateelazycat/awesome-tray.git
 
 [submodule "json-reformat"]
 path = site-lisp/extensions/json-reformat
@@ -414,17 +398,9 @@ url = https://github.com/ginqi7/image-slicing.git
 path = site-lisp/extensions/f
 url = https://github.com/rejeep/f.el.git
 
-[submodule "site-lisp/extensions/aidermacs"]
-path = site-lisp/extensions/aidermacs
-url = https://github.com/MatthewZMD/aidermacs.git
-
 [submodule "site-lisp/extensions/languages/solidity"]
 path = site-lisp/extensions/languages/solidity
 url = https://github.com/ethereum/emacs-solidity.git
-
-[submodule "site-lisp/extensions/emigo"]
-path = site-lisp/extensions/emigo
-url = https://github.com/MatthewZMD/emigo.git
 
 [submodule "site-lisp/extensions/org-oram"]
 path = site-lisp/extensions/org-roam

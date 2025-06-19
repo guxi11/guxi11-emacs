@@ -63,18 +63,16 @@
     ;;(require 'init-rime)
     (require 'init-treesit)
     ;; (require 'init-key-echo)
-    ;;(require 'init-emigo)
 
     ;; 可以延后加载的
     (run-with-idle-timer
      1 nil
      #'(lambda ()
-         ;; (require 'pretty-lambdada)
+         (require 'pretty-lambdada)
          (require 'browse-kill-ring)
-         ;; (require 'elf-mode)
-         ;; (require 'init-eldoc)
+         (require 'elf-mode)
+         (require 'init-eldoc) ;; elisp doc in minibar
          (require 'init-yasnippet)
-         ;;(require 'init-cursor-chg)
          ;; (require 'init-winpoint)
          ;; (require 'init-info)
          ;; (require 'init-c)
@@ -85,7 +83,7 @@
          ;;(require 'init-holo-layer)
          (require 'init-eaf)
          ;;(require 'init-popweb)
-         ;; (require 'init-eww)
+         (require 'init-eww)
          ;; (require 'trekker)
          ;; (trekker-enable)
 

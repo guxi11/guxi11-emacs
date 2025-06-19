@@ -88,6 +88,10 @@
  '(vertical-border ((t (:background "#292d3e")))))
 
 
+;; hide docoration (top bar and border)
+;;(set-frame-parameter (selected-frame) 'undecorated t)
+(add-to-list 'default-frame-alist '(undecorated . t))
+
 (provide 'init-theme)
 
 ;;; init-theme.el ends here
