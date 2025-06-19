@@ -35,17 +35,17 @@
 
 ;;; ### Toolkit ###
 ;;; --- 工具函数
-(lazy-load-set-keys
- '(
-   ("s-c o" . one-key-menu-directory)   ;目录打开菜单
-   ("s-," . bury-buffer)                ;隐藏当前buffer
-   ("s-." . unbury-buffer)              ;反隐藏当前buffer
-   ("s-[" . eval-expression)            ;执行表达式
-   ("C-s-q" . quoted-insert)            ;读取系一个输入字符并插入
-   ("M-h" . set-mark-command) ;Instead C-Space for Chinese input method
-   ("M-H" . set-mark-command) ;Instead C-Space for Chinese input method
-   ("M-;" . comment-dwim)
-   ))
+;; (lazy-load-set-keys
+;;  '(
+;;    ("s-c o" . one-key-menu-directory)   ;目录打开菜单
+;;    ("s-," . bury-buffer)                ;隐藏当前buffer
+;;    ("s-." . unbury-buffer)              ;反隐藏当前buffer
+;;    ("s-[" . eval-expression)            ;执行表达式
+;;    ("C-s-q" . quoted-insert)            ;读取系一个输入字符并插入
+;;    ("M-h" . set-mark-command) ;Instead C-Space for Chinese input method
+;;    ("M-H" . set-mark-command) ;Instead C-Space for Chinese input method
+;;    ("M-;" . comment-dwim)
+;;    ))
 ;(lazy-load-set-keys
 ; '(
 ;   ("M-h" . set-mark-command)
@@ -198,19 +198,19 @@
 
 ;;; ### Markmacro ###
 ;;; --- 标记对象的键盘宏操作
-(lazy-load-global-keys
- '(
-   ("s-h" . one-key-menu-mark-macro)     ;one-key菜单
-   ("s-M" . markmacro-rect-set)          ;记录矩形编辑开始的位置
-   ("s-D" . markmacro-rect-delete)       ;删除矩形区域
-   ("s-F" . markmacro-rect-replace)      ;替换矩形区域的内容
-   ("s-I" . markmacro-rect-insert)       ;在矩形区域前插入字符串
-   ("s-C" . markmacro-rect-mark-columns) ;转换矩形列为标记对象
-   ("s-S" . markmacro-rect-mark-symbols) ;转换矩形列对应的符号为标记对象
-   ("s-<" . markmacro-apply-all)         ;应用键盘宏到所有标记对象
-   ("s->" . markmacro-apply-all-except-first) ;应用键盘宏到所有标记对象, 除了第一个， 比如下划线转换的时候
-   )
- "init-markmacro")
+;; (lazy-load-global-keys
+;;  '(
+;;    ("s-h" . one-key-menu-mark-macro)     ;one-key菜单
+;;    ("s-M" . markmacro-rect-set)          ;记录矩形编辑开始的位置
+;;    ("s-D" . markmacro-rect-delete)       ;删除矩形区域
+;;    ("s-F" . markmacro-rect-replace)      ;替换矩形区域的内容
+;;    ("s-I" . markmacro-rect-insert)       ;在矩形区域前插入字符串
+;;    ("s-C" . markmacro-rect-mark-columns) ;转换矩形列为标记对象
+;;    ("s-S" . markmacro-rect-mark-symbols) ;转换矩形列对应的符号为标记对象
+;;    ("s-<" . markmacro-apply-all)         ;应用键盘宏到所有标记对象
+;;    ("s->" . markmacro-apply-all-except-first) ;应用键盘宏到所有标记对象, 除了第一个， 比如下划线转换的时候
+;;    )
+;;  "init-markmacro")
 
 ;;; ### Font ###
 ;;; --- 字体命令
@@ -287,12 +287,12 @@
 
 ;;; ### Fingertip ###
 ;;; --- 结构化编程
-(lazy-load-unset-keys
- '("M-J" "M-r" "M-s" "M-;" "C-M-f" "C-M-b" "M-)")
- fingertip-mode-map)                    ;卸载按键
-(defvar fingertip-key-alist nil)
-(setq fingertip-key-alist
-      '(
+;; (lazy-load-unset-keys
+;;  '("M-J" "M-r" "M-s" "M-;" "C-M-f" "C-M-b" "M-)")
+;;  fingertip-mode-map)                    ;卸载按键
+;; (defvar fingertip-key-alist nil)
+;; (setq fingertip-key-alist
+;;       '(
         ;; 移动
         ;; ("M-n" . fingertip-jump-left)
         ;; ("M-p" . fingertip-jump-right)
@@ -320,27 +320,27 @@
         ;; ("C-d" . fingertip-forward-delete)  ;向前删除
         ;; ("C-k" . fingertip-kill)            ;向前kill
         ;; ;; 包围
-        ("M-\"" . fingertip-wrap-double-quote) ;用 " " 包围对象, 或跳
-                                               ;出字符串
-        ("M-'" . fingertip-wrap-single-quote) ;用 ' ' 包围对象, 或跳出字符串
-        ("M-[" . fingertip-wrap-bracket)      ;用 [ ] 包围对象
-        ("M-{" . fingertip-wrap-curly)        ;用 { } 包围对象
-        ("M-(" . fingertip-wrap-round)        ;用 ( ) 包围对象
-        ("M-)" . fingertip-unwrap)            ;去掉包围对象
-        ;; 跳出并换行缩进
-        ("M-:" . fingertip-jump-out-pair-and-newline) ;跳出括号并换行
-        ;; 向父节点跳动
-        ("C-j" . fingertip-jump-up)
-        ))
-(lazy-load-set-keys fingertip-key-alist fingertip-mode-map)
+;;         ("M-\"" . fingertip-wrap-double-quote) ;用 " " 包围对象, 或跳
+;;                                                ;出字符串
+;;         ("M-'" . fingertip-wrap-single-quote) ;用 ' ' 包围对象, 或跳出字符串
+;;         ("M-[" . fingertip-wrap-bracket)      ;用 [ ] 包围对象
+;;         ("M-{" . fingertip-wrap-curly)        ;用 { } 包围对象
+;;         ("M-(" . fingertip-wrap-round)        ;用 ( ) 包围对象
+;;         ("M-)" . fingertip-unwrap)            ;去掉包围对象
+;;         ;; 跳出并换行缩进
+;;         ("M-:" . fingertip-jump-out-pair-and-newline) ;跳出括号并换行
+;;         ;; 向父节点跳动
+;;         ("C-j" . fingertip-jump-up)
+;;         ))
+;; (lazy-load-set-keys fingertip-key-alist fingertip-mode-map)
 
 ;;; ### Thingh-edit ###
 ;;; --- 增强式编辑当前光标的对象
-(lazy-load-global-keys
- '(
-   ("M-s-h" . one-key-menu-thing-edit)  ;thing-edit 菜单
-   )
- "init-thing-edit")
+;; (lazy-load-global-keys
+;;  '(
+;;    ("M-s-h" . one-key-menu-thing-edit)  ;thing-edit 菜单
+;;    )
+;;  "init-thing-edit")
 
 ;;; ### EAF ###
 ;;; EAF
@@ -403,24 +403,25 @@
 
 ;;; ### Help ###
 ;;; --- 帮助模式
-(lazy-load-global-keys
- '(
-   ("C-h". one-key-menu-help)           ;帮助菜单
-   )
- "init-help-mode")
-(lazy-load-global-keys
- '(
-   ("M-U" . smart-align)
-   )
- "smart-align")
+;; (lazy-load-global-keys
+;;  '(
+;;    ("C-h". one-key-menu-help)           ;帮助菜单
+;;    )
+ ;; "init-help-mode")
+
+;; (lazy-load-global-keys
+;;  '(
+;;    ("M-U" . smart-align)
+;;    )
+;;  "smart-align")
 
 ;;; ### Yoaddmuse ###
 ;;; --- Yet another oddmuse mode
-(lazy-load-global-keys
- '(
-   ("M-s-;" . one-key-menu-yaoddmuse)   ;yaoddmuse 菜单
-   )
- "init-yaoddmuse")
+;; (lazy-load-global-keys
+;;  '(
+;;    ("M-s-;" . one-key-menu-yaoddmuse)   ;yaoddmuse 菜单
+;;    )
+;;  "init-yaoddmuse")
 
 ;;; ### Python ###
 ;;; --- Python mode
@@ -501,10 +502,10 @@
 
 ;;; ### Git ###
 ;;; --- EAF Git
-(lazy-load-global-keys
- '(
-   ("s-x f" . one-key-menu-git))
- "init-eaf")
+;; (lazy-load-global-keys
+;;  '(
+;;    ("s-x f" . one-key-menu-git))
+;;  "init-eaf")
 
 ;; ### Smex ###
 ;;; --- 高级M-x

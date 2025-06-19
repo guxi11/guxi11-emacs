@@ -31,7 +31,7 @@
     ;;(require 'benchmark-init)
     ;;(benchmark-init/activate)
 
-    ;;(require 'init-fullscreen)
+    ;;(require 'init-fullscreen) ;; later
 
     (require 'init-generic)
     ;;(require 'lazycat-theme)
@@ -41,8 +41,8 @@
     (when (featurep 'cocoa)
       (require 'cache-path-from-shell))
     (require 'lazy-load)
-    (require 'one-key)
-    (require 'fingertip)
+    ;; (require 'one-key)
+    ;; (require 'fingertip)
     (require 'display-line-numbers)
     (require 'basic-toolkit)
     (require 'redo)
@@ -53,9 +53,9 @@
     (require 'init-lsp-bridge)
     (require 'init-auto-save)
     (require 'init-mode)
-    (require 'init-fingertip)
+    ;; (require 'init-fingertip)
     (require 'init-indent)
-    (require 'init-one-key)
+    ;;(require 'init-one-key)
     (require 'init-key)
     ;; (require 'init-vi-navigate)
     ;;(require 'init-isearch-mb)
@@ -91,7 +91,7 @@
 
          ;;(require 'init-session)
          ;;(emacs-session-restore)
-         (message "zyy hi")
+         (message "-- hi")
 ;;         (require 'init-sort-tab)
 ;;         (require 'init-projectile-rails)
          ))))
