@@ -18,7 +18,12 @@
 
 (global-set-key (kbd "RET") 'newline-and-indent)
 
-;(define-key global-map (kbd "C-c") (make-sparse-keymap)) ; https://emacs.stackexchange.com/a/54792
+(global-set-key (kbd "s-b") 'previous-buffer)
+(global-set-key (kbd "s-z") 'zoom-window-zoom)
+(global-set-key (kbd "M-v") 'yank) ;; overwrite scroll up
+(global-set-key (kbd "C-c C-o") 'org-open-at-point)
+
+;;(define-key global-map (kbd "C-c") (make-sparse-keymap)) ; https://emacs.stackexchange.com/a/54792
 ;; (global-set-key (kbd "C-c ;") 'comment-or-uncomment-region) ; 为选中的代码加注释/去注释
 
 (provide 'init-key-u)

@@ -11,6 +11,7 @@
 ;; (package-refresh-contents)
 
 (require 'package)
+
 (setq package-archives
       '(("gnu"   . "https://elpa.gnu.org/packages/")
         ("melpa" . "https://melpa.org/packages/")))
@@ -60,7 +61,7 @@
   :ensure t
   :config
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-  (setq aw-background t)
+  (setq aw-background nil)
   (setq aw-scope 'frame)
   :bind (("C-x o" . 'ace-window)))
 
@@ -94,10 +95,10 @@
         register-preview-function #'consult-register-format)
   )
 
-(use-package anzu
+(use-package anzu ; replace
   :ensure t
   :config
-  (setq anzu-replace-at-cursor-thing 'word)) ;; not working
+  (setq anzu-replace-at-cursor-thing 'word))
 
 (use-package counsel-projectile
   :ensure t
@@ -113,9 +114,8 @@
   :ensure t
   :config
   (global-diff-hl-mode)
-  (if (not (display-graphic-p)) diff-hl-margin-mode) ;; TODO not working
-  (diff-hl-margin-mode)
-  )
+  (if (not (display-graphic-p)) diff-hl-margin-mode)
+  (diff-hl-margin-mode))
 
 (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
 (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
@@ -160,24 +160,22 @@
   :ensure t
   :after (treemacs)
   :config
-  (treemacs-icons-dired-mode 1)
-  )
+  (treemacs-icons-dired-mode 1))
 
-                                        ;(setq lsp-headerline-arrow "‣")
+;;(setq lsp-headerline-arrow "‣")
 
 (use-package reveal-in-osx-finder
   :ensure t)
 
-                                        ;(use-package yasnippet
-                                        ;  :ensure t
-                                        ;  :config
-                                        ;  (setq yas-snippet-dirs '("~/org/snippets"))
-                                        ;  (yas-global-mode 1))
+;;(use-package yasnippet
+;;  :ensure t
+;;  :config
+;;  (setq yas-snippet-dirs '("~/org/snippets"))
+;;  (yas-global-mode 1))
 
 (use-package xclip
   :ensure t
-  :init (xclip-mode)
-  )
+  :init (xclip-mode))
 
 (use-package cal-china-x
   :ensure t

@@ -16,8 +16,7 @@
   "Check if is prog mode and lint."
   (interactive)
   (if (derived-mode-p 'prog-mode)
-      (lint-fix)
-    ()))
+      (lint-fix)))
 
 (use-package blamer
   :ensure t
@@ -29,16 +28,16 @@
   (blamer-min-offset 10)
   :custom-face
   (blamer-face ((t :foreground "#7a88cf"
-                    :background nil
-  ;                  :height 140
-                    :italic t)))
+                   :background nil
+                                        ;                  :height 140
+                   :italic t)))
   :config
   (global-blamer-mode 1))
 
 (defun my/dired-copy-dirname-as-kill ()
   "Copy the current directory into the kill ring."
   (interactive)
-  (kill-new (replace-regexp-in-string "/Users/yuanyuanzhang/develop/Tencent/ww.*njlogic/" "" default-directory)))
+  (kill-new (replace-regexp-in-string "~/develop/Tencent/ww.*njlogic/" "" default-directory)))
 
 (defun my/relative-path ()
   "copy relative path";;https://emacs.stackexchange.com/a/45424

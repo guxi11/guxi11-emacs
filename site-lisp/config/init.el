@@ -31,7 +31,7 @@
     ;;(require 'benchmark-init)
     ;;(benchmark-init/activate)
 
-    ;;(require 'init-fullscreen) ;; later
+    ;; (require 'init-fullscreen)
 
     (require 'init-generic)
     ;;(require 'lazycat-theme)

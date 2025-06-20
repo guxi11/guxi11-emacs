@@ -6,14 +6,6 @@
 
 ;;; ### no evil block ###
 ;;; --- 在没有evil模式的panel中使用
-(lazy-load-global-keys
- '(
-   ("s-b" . previous-buffer) ; 回到上一个buffer
-   ("s-z" . zoom-window-zoom) ; zoom
-   ("M-v" . yank) ; overwrite scroll up
-   ("C-c C-o" . org-open-at-point) ; overwrite scroll up
-   )
- "no-evil")
 
 (defun my/open-link-at-point ()
   "在光标处判断链接类型，http/https 用 EAF browser 打开，id: 用 org-roam 打开。"
@@ -47,8 +39,8 @@
   (setq evil-search-module 'evil-search)
   ;; (setq evil-want-C-u-scroll t) ;; not working
   ;; gui only
-  (setq evil-insert-state-cursor '((bar . 1) "yellow")
-        evil-normal-state-cursor '(box "purple"))
+  (setq evil-insert-state-cursor '((bar . 2) "red")
+        evil-normal-state-cursor '(box "red"))
   (define-key evil-insert-state-map (kbd "s-v") 'yank)
   ;; default key bindings:
   ;;   H heading line

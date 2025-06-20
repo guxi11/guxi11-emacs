@@ -86,9 +86,11 @@
 
 (setq-default ispell-program-name nil)
 
+(require 'init-chinese-anniversary)
+
 (setq org-directory (file-truename "~/org/"))
-;;(setq org-agenda-files '("~/org/tencent/" "~/org/roam/journal/capture.org" "~/org/roam/journal/DaysMatter.org" "~/org/refile.org"))
-(setq org-agenda-files '("~/org/tencent/" "~/org/roam/journal/capture.org" "~/org/refile.org"))
+(setq org-agenda-files '("~/org/tencent/" "~/org/roam/journal/capture.org" "~/org/roam/journal/DaysMatter.org" "~/org/refile.org"))
+;; (setq org-agenda-files '("~/org/tencent/" "~/org/roam/journal/capture.org" "~/org/refile.org"))
 ;;(setq org-agenda-files (directory-files-recursively "~/org/" ".org$"))
 (setq pv/org-refile-file (concat org-directory "refile.org"))
 
@@ -264,8 +266,8 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 (defun my/org-roam-refresh-agenda-list ()
   (interactive)
   (setq org-agenda-files (cl-union
-'("~/org/tencent/" "~/org/roam/journal/capture.org" "~/org/refile.org")
-;;'("~/org/tencent/" "~/org/roam/journal/capture.org" "~/org/roam/journal/DaysMatter.org" "~/org/refile.org")
+;; '("~/org/tencent/" "~/org/roam/journal/capture.org" "~/org/refile.org")
+'("~/org/tencent/" "~/org/roam/journal/capture.org" "~/org/roam/journal/DaysMatter.org" "~/org/refile.org")
                           (my/org-roam-list-notes-by-tag "todo"))))
 
 ;; Build the agenda list the first time for the session

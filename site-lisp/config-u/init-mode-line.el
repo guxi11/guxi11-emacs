@@ -32,8 +32,8 @@
            (when column-number-mode
              (format ":%d" (current-column))))
           'face (if (mode-line-window-selected-p)
-                    '(:foreground "brown1" :weight bold)
-                '(:foreground "brown3" :weight bold)
+                    '(:foreground "VioletRed1" :weight bold)
+                '(:foreground "HotPink2" :weight bold)
                   )))))
 
 (defun shorten-directory (dir max-length)
@@ -65,7 +65,7 @@
  '(:eval (propertize "%12b"
 		             'face (if (mode-line-window-selected-p)
 			                   '(:foreground "VioletRed1" :weight bold)
-			                 '(:foreground "pink1" :weight bold)))))
+			                 '(:foreground "HotPink2" :weight bold)))))
 
 (defun my/git-repo-name ()
   "Return the name of the current Git repository, or nil if not in a repo."

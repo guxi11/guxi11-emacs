@@ -51,25 +51,23 @@
 ;;   :ensure t)
 ;; (color-theme-approximate-on)
 
-;; (use-package smart-mode-line
-;;   :ensure t
-;;   :init
-;;   ; (setq sml/no-confirm-load-theme t)  ; avoid asking when startup
-;;   (sml/setup)
-;;   :config
-;;   (setq rm-blacklist
-;;     (format "^ \\(%s\\)$"
-;;       (mapconcat #'identity
-;;         '("Projectile.*" "company.*" "Google"
-;; 	  "Undo-Tree" "counsel" "ivy" "yas" "WK"
-;; 	  "FlyC" "ElDoc" "hs" "jj")
-;;          "\\|"))))
+;; company-box
 
-;; face
 ;; highlight current line
 (global-hl-line-mode t)
-;; (set-face-attribute 'region nil :background "#8f4269")
-(set-face-background 'hl-line "gray10")
+(set-face-attribute 'region nil :background "orchid4") ;; selected region
+(set-face-background 'hl-line "#4b2343")
+
+(let ((bg (face-background 'default)))
+  (set-face-background 'tab-bar bg)
+  (set-face-background 'tab-bar-tab bg)
+  (set-face-background 'tab-bar-tab-inactive bg))
+
+;; lsp-bridge
+(set-face-background 'acm-frame-default-face "#111213")
+(set-face-background 'acm-frame-border-face "gray20")
+(set-face-foreground 'acm-frame-select-face "moccasin")
+(set-face-background 'acm-frame-select-face "orchid4")
 
 ;; should only contain one in init file
 (custom-set-variables
@@ -82,7 +80,7 @@
 '(ivy-current-match ((t (:extend t :background "brown4"))))
  '(ivy-org ((t (:foreground "brightyellow" :slant italic))))
  '(lazy-highlight ((t (:background "#f06070" :foreground "#EEFFFF" :weight bold))))
- '(mode-line ((t (:background "dark slate blue" :foreground "moccasin" :box nil))))
+ '(mode-line ((t (:background "#3a317e" :foreground "moccasin" :box nil))))
  '(mode-line-inactive ((t (:background "#202030" :foreground "gray70" :box nil))))
  '(tab-bar-tab ((t (:background "white" :foreground "VioletRed1" :weight bold :box nil))))
  '(vertical-border ((t (:background "#292d3e")))))
