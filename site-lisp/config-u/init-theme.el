@@ -69,6 +69,9 @@
 (set-face-foreground 'acm-frame-select-face "moccasin")
 (set-face-background 'acm-frame-select-face "orchid4")
 
+;; activities
+(set-face-foreground 'activities-tabs "VioletRed1")
+
 ;; should only contain one in init file
 (custom-set-variables
   '(zoom-window-mode-line-color "dark cyan"))
@@ -82,7 +85,7 @@
  '(lazy-highlight ((t (:background "#f06070" :foreground "#EEFFFF" :weight bold))))
  '(mode-line ((t (:background "#3a317e" :foreground "moccasin" :box nil))))
  '(mode-line-inactive ((t (:background "#202030" :foreground "gray70" :box nil))))
- '(tab-bar-tab ((t (:background "white" :foreground "VioletRed1" :weight bold :box nil))))
+ '(tab-bar-tab ((t (:background "#646e95" :foreground "VioletRed1" :weight bold :box (:line-width (6 . 1) :color "#646e95" :style nil)))))
  '(vertical-border ((t (:background "#292d3e")))))
 
 

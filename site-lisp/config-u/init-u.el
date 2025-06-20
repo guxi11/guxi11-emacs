@@ -9,8 +9,8 @@
 ;; Require configs
 (require 'init-mode-line)
 (require 'init-packages)
-(require 'init-theme)
 (require 'init-activities)
+(require 'init-theme)
 (require 'init-evil)
 (require 'init-develop)
 (require 'init-window-u)
