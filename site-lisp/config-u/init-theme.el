@@ -56,7 +56,7 @@
 ;; highlight current line
 (global-hl-line-mode t)
 (set-face-attribute 'region nil :background "orchid4") ;; selected region
-(set-face-background 'hl-line "#4b2343")
+(set-face-background 'hl-line "#214353")
 
 (let ((bg (face-background 'default)))
   (set-face-background 'tab-bar bg)
