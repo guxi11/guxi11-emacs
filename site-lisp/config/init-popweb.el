@@ -82,6 +82,10 @@
 ;;; Require
 (require 'popweb-dict)
 (require 'eww)
+(require 'popweb-org-roam-link)
+
+(require 'popweb-latex)
+(add-hook 'latex-mode-hook #'popweb-latex-mode)
 
 ;;; Code:
 

@@ -64,6 +64,7 @@
   (define-key evil-normal-state-map (kbd "+") 'enlarge-window)
   ;; tabs
   (define-key evil-normal-state-map (kbd "gp") 'tab-previous) ;'tab-next: gt
+  (define-key evil-normal-state-map (kbd "gn") 'tab-next)
   ;; search
   (define-key evil-normal-state-map (kbd "M-s") 'blink-search)
   ;; scroll up down
@@ -121,6 +122,8 @@
 	"pr" 'anzu-query-replace-regexp
 	"pc" 'anzu-query-replace-at-cursor
 	"pr" 'anzu-replace-at-cursor-thing
+    ;; latex
+    "pl" 'org-latex-preview
     ;; git
     "gs" 'magit-status
     "gf" 'magit-file-dispatch

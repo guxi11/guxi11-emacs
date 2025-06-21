@@ -97,8 +97,12 @@
 
 (defun pv/init-org-hook ()
   (setq truncate-lines nil)
-  ;; (org-toggle-pretty-entities) ; display LaTeX symbols
+  (org-toggle-pretty-entities) ; display LaTeX symbols
   )
+
+(setq org-format-latex-options
+      (plist-put org-format-latex-options :scale 1.4)) ; 放大2倍
+
 (defun pv/org-skip-subtree-if-priority (priority)
   "Skip an agenda subtree if it has a priority of PRIORITY.
 PRIORITY may be one of the characters ?A, ?B, or ?C."
@@ -116,6 +120,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
       nil)))
 ;;(org-hide-leading-stars t "clearer way to display")
 
+(setq org-display-remote-inline-images 'download) ;; Emacs 29+
 (setq org-startup-with-inline-images t) ;; "always display inline image"
 (setq org-image-actual-width 600) ;; "set width of image when displaying"
 (setq org-outline-path-complete-in-steps nil)
