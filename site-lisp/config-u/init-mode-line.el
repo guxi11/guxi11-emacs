@@ -90,12 +90,13 @@
              (format "[%s] " (my/git-repo-name))))
    (vc-mode vc-mode)
    " "
-   mode-name
+   ;; mode-name
+   mode-line-modes
    mode-line-end-spaces))
 
 (force-mode-line-update t)
 
-;;(setq-default mode-line-format nil)
+;; (setq-default mode-line-format nil)
 
 (provide 'init-mode-line)
 ;;; init-mode-line.el ends here
