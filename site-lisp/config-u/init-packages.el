@@ -136,11 +136,20 @@ which-key-idle-secondary-delay 0.1)
   :ensure t
   :config
   (global-diff-hl-mode)
-  (if (not (display-graphic-p)) diff-hl-margin-mode)
-  (diff-hl-margin-mode))
+  ;; (if (not (display-graphic-p)) diff-hl-margin-mode)
+  ;; (diff-hl-margin-mode)
+  )
 
 (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
 (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+
+;; 强力的chaggpt 配置，能够刷新状态
+(defun my-diff-hl-magit-post-refresh ()
+  (dolist (buf (buffer-list))
+    (with-current-buffer buf
+      (when diff-hl-mode
+        (diff-hl-update)))))
+(add-hook 'magit-post-refresh-hook #'my-diff-hl-magit-post-refresh)
 
 (use-package treemacs
   :ensure t
