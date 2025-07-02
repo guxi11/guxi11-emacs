@@ -63,14 +63,14 @@
 ;;                (display-buffer-in-side-window)
 ;;                (side . bottom)
 ;;                (window-height . 0.6)))
-;; (add-to-list 'display-buffer-alist
-;;              '("\\magit-diff:"
-;;                (display-buffer-in-direction)
-;;                (direction . left)))
-;; (add-to-list 'display-buffer-alist
-;;              '("\\magit-revision:"
-;;                (display-buffer-in-direction)
-;;                (direction . right)))
+(add-to-list 'display-buffer-alist
+             '("\\magit-diff:"
+               (display-buffer-in-direction)
+               (direction . left)))
+(add-to-list 'display-buffer-alist
+             '("\\magit-revision:"
+               (display-buffer-in-direction)
+               (direction . right)))
 ;; org-roam
 (add-to-list 'display-buffer-alist
 			 '("\\*org-roam\\*"

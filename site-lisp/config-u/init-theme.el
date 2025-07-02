@@ -95,7 +95,7 @@
 (setq default-frame-alist
              '((width . 200)    ;; 宽度：100列
                (height . 80)    ;; 高度：40行
-               (right . 60)     ;; 距屏幕左边200像素
+               (right . 10)     ;; 距屏幕左边200像素
                (top . 100)      ;; 距屏幕顶端100像素
                (undecorated . t)
                ))
