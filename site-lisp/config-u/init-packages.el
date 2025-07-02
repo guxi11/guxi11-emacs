@@ -109,10 +109,28 @@
 (setq which-key-idle-delay 0.1
 which-key-idle-secondary-delay 0.1)
 
+;; (use-package magit
+;;   :ensure t
+;;   :config
+;;   (setq magit-diff-refine-hunk 'all))
+
 (use-package magit
   :ensure t
   :config
-  (setq magit-diff-refine-hunk 'all))
+  (defvar my-magit-pre-window-config nil)
+  (defun my-magit-save-window-config ()
+    (setq my-magit-pre-window-config (current-window-configuration)))
+  (defun my-magit-restore-window-config ()
+    (interactive)
+    (when (window-configuration-p my-magit-pre-window-config)
+      (set-window-configuration my-magit-pre-window-config)))
+  (defun my-magit-status-fullscreen (orig-fun &rest args)
+    (my-magit-save-window-config)
+    (let ((buf (apply orig-fun args)))
+      (delete-other-windows)
+      buf))
+  (advice-add 'magit-status :around #'my-magit-status-fullscreen)
+  (define-key magit-status-mode-map (kbd "q") #'my-magit-restore-window-config))
 
 (use-package diff-hl
   :ensure t
