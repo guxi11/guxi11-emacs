@@ -18,21 +18,21 @@
   (if (derived-mode-p 'prog-mode)
       (lint-fix)))
 
-(use-package blamer
-  :ensure t
-  :bind (("s-i" . blamer-show-commit-info)
-         ("C-c i" . blamer-show-posframe-commit-info))
-  :defer 20
-  :custom
-  (blamer-idle-time 1)
-  (blamer-min-offset 10)
-  :custom-face
-  (blamer-face ((t :foreground "#7a88cf"
-                   :background nil
-                                        ;                  :height 140
-                   :italic t)))
-  :config
-  (global-blamer-mode 1))
+;; (use-package blamer
+;;   :ensure t
+;;   :bind (("s-i" . blamer-show-commit-info)
+;;          ("C-c i" . blamer-show-posframe-commit-info))
+;;   :defer 20
+;;   :custom
+;;   (blamer-idle-time 1)
+;;   (blamer-min-offset 10)
+;;   :custom-face
+;;   (blamer-face ((t :foreground "#7a88cf"
+;;                    :background nil
+;;                                         ;                  :height 140
+;;                    :italic t)))
+;;   :config
+;;   (global-blamer-mode 1))
 
 (defun my/dired-copy-dirname-as-kill ()
   "Copy the current directory into the kill ring."

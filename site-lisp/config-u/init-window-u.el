@@ -51,7 +51,7 @@
 			   (direction . top)))
 
 ;; Required. But note that this _does_ change Magit's default buffer display behavior.
-(setq magit-display-buffer-function #'display-buffer)
+;; (setq magit-display-buffer-function #'display-buffer)
 ;; (add-to-list 'display-buffer-alist
 ;;           `((derived-mode . magit-mode)
 ;;             (display-buffer-below-selected)
@@ -60,7 +60,9 @@
 ;;             ))
 (add-to-list 'display-buffer-alist
              '("\\magit:"
-               (display-buffer-below-selected)))
+               (display-buffer-in-side-window)
+               (side . bottom)
+               (window-height . 0.6)))
 (add-to-list 'display-buffer-alist
              '("\\magit-diff:"
                (display-buffer-in-direction)

@@ -178,6 +178,7 @@
     "ndy" 'org-roam-dailies-capture-yesterday
     ;; kill
     "ke" 'kill-emacs
+    "ko" 'tab-close-other
     )
   (define-prefix-command 'my-lsp-map)
   (keymap-set evil-normal-state-map "s" 'my-lsp-map)

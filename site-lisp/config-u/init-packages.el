@@ -105,6 +105,10 @@
   :after (projectile)
   :init (counsel-projectile-mode))
 
+(setq counsel-async-command-delay 0.3)
+(setq which-key-idle-delay 0.1
+which-key-idle-secondary-delay 0.1)
+
 (use-package magit
   :ensure t
   :config
