@@ -60,6 +60,11 @@
   (interactive)
   (kill-new (buffer-file-name)))
 
+(defun my/branch ()
+  "Copy current git branch to kill ring."
+  (interactive)
+  (kill-new (magit-get-current-branch)))
+
 ;; AI
 ;; (use-package transient :ensure t) ;; 已经被依赖了
 (use-package aider
