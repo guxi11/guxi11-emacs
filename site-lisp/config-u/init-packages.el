@@ -139,11 +139,11 @@
         '((?p aw-copy-relative-path "Copy Relative Path")
           (?y aw-copy-and-yank-relative-path "Copy & Yank Path")
           (?x aw-delete-window "Delete Window")
-          (?s aw-swap-window "Swap Windows")
+          (?m aw-swap-window "Swap Windows")
           (?n aw-flip-window)
           (?v aw-split-window-vert "Split Vert Window")
           (?b aw-split-window-horz "Split Horz Window")
-          (?m delete-other-windows "Delete Other Windows")
+          (?1 delete-other-windows "Delete Other Windows")
           (?? aw-show-dispatch-help)))
 
   :bind (("C-x o" . 'ace-window)))
