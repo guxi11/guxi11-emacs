@@ -80,23 +80,29 @@
                ;; (direction . bottom)
 			   ))
 
-(let* ((sw (display-pixel-width))
-       (sh (display-pixel-height))
-       ;; scale columns/rows by screen size; ~8px/col, ~16px/row estimate
-       (w  (cond ((>= sw 3840) 300)
-                 ((>= sw 2560) 280)
-                 ((>= sw 1920) 180)
-                 (t            160)))
-       (h  (cond ((>= sh 2160) 110)
-                 ((>= sh 1440) 95)
-                 ((>= sh 1080) 60)
-                 (t            50))))
-  (setq default-frame-alist
-        `((width       . ,w)
-          (height      . ,h)
-          (left        . -100)
-          (top         . 60)
-          (undecorated . t))))
+(setq default-frame-alist '((undecorated . t)))
+
+(defun my/set-frame-geometry (&optional frame)
+  (let* ((f        (or frame (selected-frame)))
+         (workarea (alist-get 'workarea (car (display-monitor-attributes-list))))
+         ;; workarea: (x y width height) in logical pixels
+         (wa-x  (nth 0 workarea))
+         (wa-y  (nth 1 workarea))
+         (wa-w  (nth 2 workarea))
+         (wa-h  (nth 3 workarea))
+         (margin-left   100)
+         (margin-top     30)
+         (margin-right  100)
+         (margin-bottom  30)
+         (cw (frame-char-width  f))
+         (ch (frame-char-height f))
+         (cols (/ (- wa-w margin-left margin-right) cw))
+         (rows (/ (- wa-h margin-top  margin-bottom) ch)))
+    (set-frame-position f (+ wa-x margin-left) (+ wa-y margin-top))
+    (set-frame-size     f cols rows)))
+
+(add-hook 'after-make-frame-functions #'my/set-frame-geometry)
+(add-hook 'after-init-hook            #'my/set-frame-geometry)
 
 (provide 'init-window-u)
 ;;; init-window.el ends here
