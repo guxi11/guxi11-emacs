@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: img
+# key: im
+# --
+
+img {
+  width: $1px;
+  height: $0px;
+}

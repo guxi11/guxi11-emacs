@@ -1,0 +1,37 @@
+# Archived Extensions
+
+- typescript - https://github.com/ananthakumaran/typescript.el.git
+- web-mode - https://github.com/fxbois/web-mode
+- emacs-rails - https://github.com/manateelazycat/emacs-rails.git
+- flex - https://github.com/manateelazycat/flex.git
+- bison - https://github.com/manateelazycat/bison.git
+- json-reformat - https://github.com/gongo/json-reformat.git
+- restclient.el - https://github.com/pashky/restclient.el.git
+- thing-edit - https://github.com/manateelazycat/thing-edit.git
+- smart-align - https://github.com/manateelazycat/smart-align.git
+- benchmark-init - https://github.com/dholm/benchmark-init-el
+- toggle-one-window - https://github.com/manateelazycat/toggle-one-window.git
+- find-orphan - https://github.com/manateelazycat/find-orphan
+- xterm-color - https://github.com/atomontage/xterm-color.git
+- recursive-search-references - https://github.com/manateelazycat/recursive-search-references
+- markdown-mode - https://github.com/jrblevin/markdown-mode
+- json-mode - https://github.com/joshwnj/json-mode
+- json-snatcher - https://github.com/Sterlingg/json-snatcher
+- dictionary-overlay - https://github.com/ginqi7/dictionary-overlay
+- websocket-bridge - https://github.com/ginqi7/websocket-bridge
+- reformatter - https://github.com/purcell/emacs-reformatter
+- key-echo - https://github.com/manateelazycat/key-echo.git
+- trekker - https://github.com/manateelazycat/trekker.git
+- sesman - https://github.com/vspinu/sesman
+- cloel - https://github.com/manateelazycat/cloel
+- cloel-extensions/reorder-file - https://github.com/manateelazycat/reorder-file
+- elysium - https://github.com/lanceberge/elysium
+- diff-hl - https://github.com/dgutov/diff-hl
+- ts-fold - https://github.com/emacs-tree-sitter/ts-fold.git
+- ghc-mod
+- inf-ruby
+- ipython-0.9.1
+- languages
+- ruby-electric
+- ruby-tools
+- slime

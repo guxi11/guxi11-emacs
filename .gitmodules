@@ -1,0 +1,147 @@
+[submodule "watch-other-window"]
+path = site-lisp/extensions/watch-other-window
+url = https://github.com/manateelazycat/watch-other-window.git
+
+[submodule "cache-path-from-shell"]
+path = site-lisp/extensions/cache-path-from-shell
+url = https://github.com/manateelazycat/cache-path-from-shell.git
+
+[submodule "css-sort"]
+path = site-lisp/extensions/css-sort
+url = https://github.com/manateelazycat/css-sort.git
+
+[submodule "color-rg"]
+path = site-lisp/extensions/color-rg
+url = https://github.com/manateelazycat/color-rg.git
+
+[submodule "auto-save"]
+path = site-lisp/extensions/auto-save
+url = https://github.com/manateelazycat/auto-save.git
+
+[submodule "goto-line-preview"]
+path = site-lisp/extensions/goto-line-preview
+url = https://github.com/jcs090218/goto-line-preview.git
+
+[submodule "move-text"]
+path = site-lisp/extensions/move-text
+url = https://github.com/manateelazycat/move-text.git
+
+[submodule "open-newline"]
+path = site-lisp/extensions/open-newline
+url = https://github.com/manateelazycat/open-newline.git
+
+[submodule "lazy-load"]
+path = site-lisp/extensions/lazy-load
+url = https://github.com/manateelazycat/lazy-load.git
+
+[submodule "site-lisp/extensions/transient"]
+path = site-lisp/extensions/transient
+url = https://github.com/magit/transient.git
+
+[submodule "symbol-overlay"]
+path = site-lisp/extensions/symbol-overlay
+url = https://github.com/wolray/symbol-overlay.git
+
+[submodule "delete-block"]
+path = site-lisp/extensions/delete-block
+url = https://github.com/manateelazycat/delete-block.git
+
+[submodule "instant-rename-tag"]
+path = site-lisp/extensions/instant-rename-tag
+url = https://github.com/manateelazycat/instant-rename-tag.git
+
+[submodule "olivetti"]
+path = site-lisp/extensions/olivetti
+url = https://github.com/rnkn/olivetti.git
+
+[submodule "posframe"]
+path = site-lisp/extensions/posframe
+url = https://github.com/tumashu/posframe.git
+
+[submodule "projectile"]
+path = site-lisp/extensions/projectile
+url = https://github.com/bbatsov/projectile.git
+
+[submodule "site-lisp/extensions/dash"]
+path = site-lisp/extensions/dash
+url = https://github.com/magnars/dash.el.git
+
+[submodule "site-lisp/extensions/highlight-matching-tag"]
+path = site-lisp/extensions/highlight-matching-tag
+url = https://github.com/manateelazycat/highlight-matching-tag
+
+[submodule "site-lisp/extensions/lspbridge"]
+path = site-lisp/extensions/lspbridge
+url = https://github.com/manateelazycat/lsp-bridge
+
+[submodule "site-lisp/extensions/emacs-websocket"]
+path = site-lisp/extensions/emacs-websocket
+url = https://github.com/ahyatt/emacs-websocket
+
+[submodule "site-lisp/extensions/deno-bridge"]
+path = site-lisp/extensions/deno-bridge
+url = https://github.com/manateelazycat/deno-bridge
+
+[submodule "site-lisp/extensions/yasnippet"]
+path = site-lisp/extensions/yasnippet
+url = https://github.com/joaotavora/yasnippet
+
+[submodule "site-lisp/extensions/deno-bridge-jieba"]
+path = site-lisp/extensions/deno-bridge-jieba
+url = https://github.com/ginqi7/deno-bridge-jieba
+
+[submodule "site-lisp/extensions/blink-search"]
+path = site-lisp/extensions/blink-search
+url = https://github.com/manateelazycat/blink-search
+
+[submodule "site-lisp/extensions/visual-regexp"]
+path = site-lisp/extensions/visual-regexp
+url = https://github.com/benma/visual-regexp.el
+
+[submodule "site-lisp/extensions/smex"]
+path = site-lisp/extensions/smex
+url = https://github.com/nonsequitur/smex
+
+[submodule "site-lisp/extensions/markmacro"]
+path = site-lisp/extensions/markmacro
+url = https://github.com/manateelazycat/markmacro.git
+
+[submodule "site-lisp/extensions/ws-butler"]
+path = site-lisp/extensions/ws-butler
+url = https://github.com/lewang/ws-butler.git
+
+[submodule "site-lisp/extensions/wraplish"]
+path = site-lisp/extensions/wraplish
+url = https://github.com/manateelazycat/wraplish.git
+
+[submodule "site-lisp/extensions/vundo"]
+path = site-lisp/extensions/vundo
+url = https://github.com/casouri/vundo.git
+
+[submodule "site-lisp/extensions/popper"]
+path = site-lisp/extensions/popper
+url = https://github.com/karthink/popper.git
+
+[submodule "site-lisp/extensions/valign"]
+path = site-lisp/extensions/valign
+url = https://github.com/casouri/valign.git
+
+[submodule "site-lisp/extensions/f"]
+path = site-lisp/extensions/f
+url = https://github.com/rejeep/f.el.git
+
+[submodule "site-lisp/extensions/emacsql"]
+	path = site-lisp/extensions/emacsql
+	url = https://github.com/magit/emacsql
+[submodule "site-lisp/extensions/org-roam"]
+	path = site-lisp/extensions/org-roam
+	url = https://github.com/org-roam/org-roam
+[submodule "site-lisp/extensions/treesit-fold"]
+	path = site-lisp/extensions/treesit-fold
+	url = https://github.com/emacs-tree-sitter/treesit-fold.git
+[submodule "site-lisp/extensions/emacs-monokai-pro-theme"]
+	path = site-lisp/extensions/emacs-monokai-pro-theme
+	url = git@github.com-work:yuanshenstarto/emacs-monokai-pro-theme.git
+[submodule "site-lisp/extensions/nerd-svg-icons"]
+	path = site-lisp/extensions/nerd-svg-icons
+	url = https://github.com/liushihao456/nerd-svg-icons.git

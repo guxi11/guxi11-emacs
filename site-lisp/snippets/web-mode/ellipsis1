@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: ellipsis single
+# key: elli1
+# --
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;

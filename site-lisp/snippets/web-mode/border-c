@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: border
+# key: bv
+# --
+border: 1px solid var(--ww_base_gray_0$0);

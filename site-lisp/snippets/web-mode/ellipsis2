@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: ellipsis 2
+# key: elli2
+# --
+overflow : hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: {$0: 2};
+-webkit-box-orient: vertical;
+word-break: break-all;

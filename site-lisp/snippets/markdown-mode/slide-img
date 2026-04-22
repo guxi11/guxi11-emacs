@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: slide image
+# key: si
+# --
+---
+transition: fade-out
+---
+
+<img
+  class="absolute bottom-3 w-100 opacity-100"
+  src="$0"
+  alt=""
+/>

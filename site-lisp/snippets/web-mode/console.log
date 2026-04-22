@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: console.log
+# key: cl
+# --
+
+console.log("--zyy ${1:log}", $0);

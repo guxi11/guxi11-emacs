@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: vue-computed
+# key: computed
+# --
+  compute: {
+    $1() {$0
+    },
+  },
