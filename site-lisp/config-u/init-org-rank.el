@@ -49,8 +49,10 @@
 (defun org-rank--midpoint (a b)
   "Return string M with A < M < B (variable-length; always works unless B = A+\"a\").
 Signals `org-rank-too-dense' only in that degenerate case."
+  ;; 软失败：上层 auto-init 会捕获并提示 rebalance；硬 error 会让整个
+  ;; org-agenda-finalize-hook 崩掉，污染所有 agenda 视图。
   (unless (string< a b)
-    (error "org-rank--midpoint: need A < B, got %S >= %S" a b))
+    (signal 'org-rank-too-dense (list a b)))
   (let* ((la  (length a))
          (lb  (length b))
          (i   (org-rank--first-diff a b))
@@ -106,10 +108,17 @@ May signal `org-rank-too-dense'."
 ;;;; ── Org property helpers ─────────────────────────────────────────────────
 
 (defun org-rank--get ()
-  (org-entry-get nil org-rank-prop))
+  "Return rank for entry at point, or nil if unset/invalid.
+非 [a-z]+ 的值（空串、手写大写、复制粘贴脏数据）一律当作未 rank，
+让 auto-init 有机会把它修正掉。"
+  (let ((r (org-entry-get nil org-rank-prop)))
+    (and (stringp r) (string-match-p "\\`[a-z]+\\'" r) r)))
 
 (defun org-rank--set (rank)
-  (org-entry-put nil org-rank-prop rank))
+  "Set RANK for entry at point. nil / 非法值一律拒绝，避免 org-entry-put
+把属性删掉造成级联故障。"
+  (when (and (stringp rank) (string-match-p "\\`[a-z]+\\'" rank))
+    (org-entry-put nil org-rank-prop rank)))
 
 (defun org-rank--entry-rank (entry)
   "Read RANK from agenda ENTRY string via its org-marker."
@@ -180,13 +189,23 @@ Mixed run (some ranked):    for each contiguous block of unranked items,
                        (next-rank (or (and (< run-end n)
                                            (funcall rank-of (nth run-end items)))
                                       org-rank--ceil)))
-                  (condition-case err
-                      (cl-loop for item in (cl-subseq items run-start run-end)
-                                for r    in (org-rank--split prev-rank next-rank run-len)
-                                do (org-with-point-at (cdr item) (org-rank--set r)))
-                    (org-rank-too-dense
-                     (message "org-rank: %s — call M-x org-rank-rebalance"
-                              (cadr err))))
+                  (cond
+                   ;; prev >= next: 视觉顺序和 rank 顺序不一致（比如 agenda
+                   ;; 视图按 time-of-day 排序、或手工/复制造成重复 rank），
+                   ;; 此时任何 midpoint 都会违反断言。跳过本 run，等用户
+                   ;; M-x org-rank-rebalance 或切到 rank 排序的视图再处理。
+                   ((not (string< prev-rank next-rank))
+                    (message "org-rank: skip run (prev=%S >= next=%S); \
+visual order disagrees with rank — call M-x org-rank-rebalance if needed"
+                             prev-rank next-rank))
+                   (t
+                    (condition-case err
+                        (cl-loop for item in (cl-subseq items run-start run-end)
+                                  for r    in (org-rank--split prev-rank next-rank run-len)
+                                  do (org-with-point-at (cdr item) (org-rank--set r)))
+                      (org-rank-too-dense
+                       (message "org-rank: %s — call M-x org-rank-rebalance"
+                                (cadr err))))))
                   (setq i run-end))))))))))
 
 ;;;; ── Rebalance ─────────────────────────────────────────────────────────────
@@ -230,6 +249,21 @@ Preserves the current visual order.  Use when ranks become too dense."
                (cur-pos    (marker-position cur-marker))
                (r1 (org-with-point-at cur-marker (org-rank--get)))
                (r2 (org-with-point-at nei-marker (org-rank--get))))
+          ;; 兜底：auto-init 对「视觉顺序 != rank 顺序」的 run 是跳过的
+          ;; （见 org-rank--auto-init 里的 prev >= next 分支），所以这里
+          ;; 仍可能遇到 r1/r2 为 nil 或两者相等的情况。直接 rebalance
+          ;; 重算，再读一次。
+          (when (or (null r1) (null r2) (string= r1 r2))
+            (org-rank-rebalance)
+            (setq items (org-rank--agenda-items)
+                  idx   (cl-position cur-marker items :key #'cdr :test #'equal))
+            (unless idx (user-error "No org item at point"))
+            (setq nei-idx (+ idx delta))
+            (unless (and (>= nei-idx 0) (< nei-idx (length items)))
+              (user-error "Already at boundary"))
+            (setq nei-marker (cdr (nth nei-idx items))
+                  r1 (org-with-point-at cur-marker (org-rank--get))
+                  r2 (org-with-point-at nei-marker (org-rank--get))))
           (let ((inhibit-redisplay t))
             (org-with-point-at cur-marker (org-rank--set r2))
             (org-with-point-at nei-marker (org-rank--set r1))
