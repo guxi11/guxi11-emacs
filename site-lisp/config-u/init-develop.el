@@ -98,5 +98,8 @@
   (aidermacs-default-chat-mode 'architect)
   (aidermacs-default-model "deepseek"))
 
+;; mermaid-mode
+(require 'mermaid-mode)
+
 (provide 'init-develop)
 ;;; init-develop.el ends here
