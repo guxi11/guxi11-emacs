@@ -293,41 +293,32 @@
     '("U" "Fetch + Pull --rebase" my-magit-fetch-then-pull-rebase))
 
   ;; 自动检测并复制 Push 输出中的 MR/PR 链接
-  (defvar my-magit-mr-debug t
-    "Non-nil 时打印 MR 链接提取过程日志到 *Messages*。")
+  (defun my-magit-extract-mr-url (buf)
+    "Scan BUF tail for MR URL and copy to kill ring."
+    (when (and buf (buffer-live-p buf))
+      (with-current-buffer buf
+        (save-excursion
+          (goto-char (point-max))
+          (let* ((scan-start (max (point-min) (- (point-max) 4000)))
+                 (url-pos (re-search-backward
+                           "^remote:.*?\\(https?://[^ \t\n|]+\\)"
+                           scan-start t)))
+            (when url-pos
+              (let ((url (match-string 1)))
+                (kill-new url)
+                (message "🔗 MR Link copied: %s" url))))))))
 
-  (defun my-magit-copy-pr-url (&rest args)
-    "Extract MR/PR URL from last git push output and copy to kill ring."
-    (when my-magit-mr-debug
-      (message "[mr-debug] hook fired, args=%S, current-buf=%s" args (buffer-name)))
-    (let ((buf (or (and (derived-mode-p 'magit-process-mode) (current-buffer))
-                   (magit-process-buffer t)
-                   (get-buffer "*magit-process*")
-                   ;; 最后兜底：扫一遍 buffer 列表
-                   (cl-find-if (lambda (b)
-                                 (with-current-buffer b
-                                   (derived-mode-p 'magit-process-mode)))
-                               (buffer-list)))))
-      (when my-magit-mr-debug
-        (message "[mr-debug] process-buffer=%s" (and buf (buffer-name buf))))
-      (when buf
-        (with-current-buffer buf
-          (save-excursion
-            (goto-char (point-max))
-            (let ((push-pos (re-search-backward "\\bpush\\b" nil t)))
-              (when my-magit-mr-debug
-                (message "[mr-debug] push-pos=%S" push-pos))
-              (when push-pos
-                (let ((url-pos (re-search-forward
-                                "^remote:.*?\\(https?://[^ \t\n|]+\\)" nil t)))
-                  (when my-magit-mr-debug
-                    (message "[mr-debug] url-pos=%S match=%S"
-                             url-pos (match-string 1)))
-                  (when url-pos
-                    (let ((url (match-string 1)))
-                      (kill-new url)
-                      (message "🔗 MR Link copied: %s" url)))))))))))
-  (add-hook 'magit-process-finish-hook #'my-magit-copy-pr-url))
+  ;; 给 sentinel 加 advice:这个是所有 magit 异步 git 进程完成的必经之路
+  (defun my-magit-process-sentinel-advice (process event)
+    "Extract MR URL when a git push/pull process finishes."
+    (when (and (processp process)
+               (memq (process-status process) '(exit signal))
+               (let ((cmd (process-command process)))
+                 (or (member "push" cmd)
+                     (member "pull" cmd))))
+      (my-magit-extract-mr-url (process-buffer process))))
+
+  (advice-add 'magit-process-sentinel :after #'my-magit-process-sentinel-advice))
 
 (use-package diff-hl
   :ensure t
