@@ -100,6 +100,7 @@
 
 ;; mermaid-mode
 (require 'mermaid-mode)
+(setq mermaid-flags "-s 3")
 
 (provide 'init-develop)
 ;;; init-develop.el ends here

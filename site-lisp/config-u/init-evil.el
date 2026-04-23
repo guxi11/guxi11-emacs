@@ -307,8 +307,8 @@
                        (point))))
         (block-end (save-excursion
                      (when (re-search-forward "^[ \t]*#\\+END_" nil t)
-                       (beginning-of-line)
-                       (point)))))
+                       (forward-line -1)
+                       (line-end-position)))))
     (when (and block-beg block-end (< block-beg block-end))
       (evil-range block-beg block-end 'line))))
 
