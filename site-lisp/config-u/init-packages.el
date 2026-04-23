@@ -269,7 +269,6 @@
            (message "Pull --rebase failed, aborting push.")
            (magit-process-sentinel process event))))))
 
-  (ignore-errors (transient-remove-suffix 'magit-push "U"))
   (transient-append-suffix 'magit-push "u"
     '("U" "Pull rebase + Push" my-magit-pull-rebase-then-push))
 
@@ -290,8 +289,7 @@
            (message "Fetch failed, aborting pull.")
            (magit-process-sentinel process event))))))
 
-  (ignore-errors (transient-remove-suffix 'magit-fetch "U"))
-  (transient-append-suffix 'magit-fetch "u"
+  (transient-append-suffix 'magit-pull "u"
     '("U" "Fetch + Pull --rebase" my-magit-fetch-then-pull-rebase))
 
   ;; 自动检测并复制 Push 输出中的 MR/PR 链接
