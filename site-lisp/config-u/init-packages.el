@@ -269,9 +269,9 @@
            (message "Pull --rebase failed, aborting push.")
            (magit-process-sentinel process event))))))
 
-  (unless (transient-get-suffix 'magit-push "U")
-    (transient-append-suffix 'magit-push "u"
-      '("U" "Pull rebase + Push" my-magit-pull-rebase-then-push)))
+  (ignore-errors (transient-remove-suffix 'magit-push "U"))
+  (transient-append-suffix 'magit-push "u"
+    '("U" "Pull rebase + Push" my-magit-pull-rebase-then-push))
 
   ;; Fetch + Pull(rebase) 一键操作
   (defun my-magit-fetch-then-pull-rebase ()
@@ -290,26 +290,45 @@
            (message "Fetch failed, aborting pull.")
            (magit-process-sentinel process event))))))
 
-  (unless (transient-get-suffix 'magit-fetch "U")
-    (transient-append-suffix 'magit-fetch "u"
-      '("U" "Fetch + Pull --rebase" my-magit-fetch-then-pull-rebase)))
+  (ignore-errors (transient-remove-suffix 'magit-fetch "U"))
+  (transient-append-suffix 'magit-fetch "u"
+    '("U" "Fetch + Pull --rebase" my-magit-fetch-then-pull-rebase))
 
   ;; 自动检测并复制 Push 输出中的 MR/PR 链接
-  ;; 设计说明：
-  ;; 1. magit-process-finish-hook 调用时不传 (process event)，需用 &rest _args
-  ;; 2. 原正则 \( \) 在 elisp 字符串里被当成字面括号，必须写成 \\( \\)
-  ;; 3. GitLab 输出带 `|` 边框（remote: | ...URL... |），URL 字符类要排除 `|`
-  ;; 4. 只在最近一次 push 命令之后的输出里找 URL，避免 fetch/pull 的 remote 行误伤
-  (defun my-magit-copy-pr-url (&rest _args)
+  (defvar my-magit-mr-debug t
+    "Non-nil 时打印 MR 链接提取过程日志到 *Messages*。")
+
+  (defun my-magit-copy-pr-url (&rest args)
     "Extract MR/PR URL from last git push output and copy to kill ring."
-    (when (derived-mode-p 'magit-process-mode)
-      (save-excursion
-        (goto-char (point-max))
-        (when (re-search-backward "git .*\\bpush\\b" nil t)
-          (when (re-search-forward "^remote:.*?\\(https?://[^ \t\n|]+\\)" nil t)
-            (let ((url (match-string 1)))
-              (kill-new url)
-              (message "🔗 MR Link copied: %s" url)))))))
+    (when my-magit-mr-debug
+      (message "[mr-debug] hook fired, args=%S, current-buf=%s" args (buffer-name)))
+    (let ((buf (or (and (derived-mode-p 'magit-process-mode) (current-buffer))
+                   (magit-process-buffer t)
+                   (get-buffer "*magit-process*")
+                   ;; 最后兜底：扫一遍 buffer 列表
+                   (cl-find-if (lambda (b)
+                                 (with-current-buffer b
+                                   (derived-mode-p 'magit-process-mode)))
+                               (buffer-list)))))
+      (when my-magit-mr-debug
+        (message "[mr-debug] process-buffer=%s" (and buf (buffer-name buf))))
+      (when buf
+        (with-current-buffer buf
+          (save-excursion
+            (goto-char (point-max))
+            (let ((push-pos (re-search-backward "\\bpush\\b" nil t)))
+              (when my-magit-mr-debug
+                (message "[mr-debug] push-pos=%S" push-pos))
+              (when push-pos
+                (let ((url-pos (re-search-forward
+                                "^remote:.*?\\(https?://[^ \t\n|]+\\)" nil t)))
+                  (when my-magit-mr-debug
+                    (message "[mr-debug] url-pos=%S match=%S"
+                             url-pos (match-string 1)))
+                  (when url-pos
+                    (let ((url (match-string 1)))
+                      (kill-new url)
+                      (message "🔗 MR Link copied: %s" url)))))))))))
   (add-hook 'magit-process-finish-hook #'my-magit-copy-pr-url))
 
 (use-package diff-hl
