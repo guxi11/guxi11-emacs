@@ -169,6 +169,19 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                                          (org-agenda-skip-if nil '(scheduled deadline))))
                           (org-agenda-overriding-header "ALL normal priority tasks:"))))
                ((org-agenda-compact-blocks t)))
+              ("h" "Daily agenda (DONE hidden)"
+               ((tags "PRIORITY=\"A\""
+                      ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                       (org-agenda-overriding-header "High-priority unfinished tasks:")))
+                (agenda "" ((org-agenda-ndays 3)
+                            (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))))
+                (alltodo ""
+                         ((org-agenda-skip-function '(or (pv/org-skip-subtree-if-habit)
+                                                         (pv/org-skip-subtree-if-priority ?A)
+                                                         (org-agenda-skip-if nil '(scheduled deadline))
+                                                         (org-agenda-skip-entry-if 'todo 'done)))
+                          (org-agenda-overriding-header "ALL normal priority tasks:"))))
+               ((org-agenda-compact-blocks t)))
 	          )))
 (setq org-capture-templates
       (quote (("t" "todo" entry (file pv/org-refile-file)
