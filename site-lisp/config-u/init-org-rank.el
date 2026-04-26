@@ -2,6 +2,13 @@
 
 ;;; Code:
 
+(defvar org-rank-debug nil
+  "Non-nil 时打印 org-rank 的内部状态到 *Messages*，用于排查排序/rank 异常。")
+
+(defun org-rank--log (fmt &rest args)
+  (when org-rank-debug
+    (apply #'message (concat "[org-rank] " fmt) args)))
+
 ;;;; ── Rank algebra ──────────────────────────────────────────────────────────
 ;;
 ;; Ranks are variable-length strings over [a-z], compared lexicographically.
@@ -129,27 +136,45 @@ May signal `org-rank-too-dense'."
 
 (defun org-rank-cmp (a b)
   "Comparator for `org-agenda-cmp-user-defined'.
-Ranked items sort before unranked; unranked items preserve relative order."
-  (let ((ra (org-rank--entry-rank a))
-        (rb (org-rank--entry-rank b)))
-    (cond
-     ((and ra rb) (cond ((string< ra rb) -1)
-                        ((string< rb ra) +1)
-                        (t nil)))
-     (ra  -1)    ; a ranked, b not → a first
-     (rb  +1)
-     (t   nil))))
+约定：-1 = A 在前，+1 = B 在前，nil = 相等（交给次级键）。
+
+排序规则（两段）：
+  1. 带 time-of-day 的项（timeline）置顶，按时间升序；
+  2. 其余项按 RANK 字典序；
+  3. 没 rank 的项最后，保持相对顺序。"
+  (let* ((ta (get-text-property 0 'time-of-day a))
+         (tb (get-text-property 0 'time-of-day b))
+         (ra (org-rank--entry-rank a))
+         (rb (org-rank--entry-rank b))
+         (r (cond
+             ;; 两者都有 time → 时间升序
+             ((and ta tb) (cond ((< ta tb) -1) ((> ta tb) +1) (t nil)))
+             ;; 只有 a 有 time → a 前（timeline 置顶）
+             (ta -1)
+             (tb +1)
+             ;; 都没 time → 按 rank
+             ((and ra rb) (cond ((string< ra rb) -1)
+                                ((string< rb ra) +1)
+                                (t nil)))
+             (ra  -1)
+             (rb  +1)
+             (t   nil))))
+    (org-rank--log "cmp ta=%S tb=%S ra=%S rb=%S -> %S" ta tb ra rb r)
+    r))
 
 ;;;; ── Agenda item collection ────────────────────────────────────────────────
 
 (defun org-rank--agenda-items ()
-  "Ordered list of (line-pos . marker) for all org items in the agenda buffer."
+  "Ordered list of (line-pos . marker) for rankable items in agenda buffer.
+Timeline 项（有 time-of-day 属性）被排除：它们按时间置顶，不参与 rank 体系。"
   (save-excursion
     (goto-char (point-min))
     (let (items)
       (while (< (point) (point-max))
-        (when-let ((m (get-text-property (point) 'org-marker)))
-          (push (cons (line-beginning-position) m) items))
+        (let ((m (get-text-property (point) 'org-marker))
+              (tod (get-text-property (point) 'time-of-day)))
+          (when (and m (not tod))
+            (push (cons (line-beginning-position) m) items)))
         (forward-line 1))
       (nreverse items))))
 
@@ -164,14 +189,17 @@ Mixed run (some ranked):    for each contiguous block of unranked items,
                             interpolate between nearest ranked neighbors."
   (let* ((items (org-rank--agenda-items))
          (n     (length items)))
+    (org-rank--log "auto-init: %d items in buffer %S" n (buffer-name))
     (when (> n 0)
       (let* ((rank-of    (lambda (x) (org-with-point-at (cdr x) (org-rank--get))))
              (any-ranked (cl-some rank-of items)))
         (if (not any-ranked)
             ;; ── First run: distribute everything ─────────────────────────
-            (cl-loop for item in items
-                     for r    in (org-rank--split org-rank--floor org-rank--ceil n)
-                     do (org-with-point-at (cdr item) (org-rank--set r)))
+            (progn
+              (org-rank--log "auto-init: first-run, distributing %d items" n)
+              (cl-loop for item in items
+                       for r    in (org-rank--split org-rank--floor org-rank--ceil n)
+                       do (org-with-point-at (cdr item) (org-rank--set r))))
           ;; ── Mixed: walk and handle each contiguous unranked run ───────
           (let ((i 0))
             (while (< i n)
@@ -190,15 +218,15 @@ Mixed run (some ranked):    for each contiguous block of unranked items,
                                            (funcall rank-of (nth run-end items)))
                                       org-rank--ceil)))
                   (cond
-                   ;; prev >= next: 视觉顺序和 rank 顺序不一致（比如 agenda
-                   ;; 视图按 time-of-day 排序、或手工/复制造成重复 rank），
-                   ;; 此时任何 midpoint 都会违反断言。跳过本 run，等用户
-                   ;; M-x org-rank-rebalance 或切到 rank 排序的视图再处理。
+                   ;; prev >= next：items 已过滤 timeline，视觉序应严格按
+                   ;; rank 字典序。触发此分支意味着 RANK 属性被外部脏写
+                   ;; （复制粘贴重复、手工乱编），跳过并提示 rebalance。
                    ((not (string< prev-rank next-rank))
-                    (message "org-rank: skip run (prev=%S >= next=%S); \
-visual order disagrees with rank — call M-x org-rank-rebalance if needed"
+                    (message "org-rank: dirty ranks around %S/%S — M-x org-rank-rebalance"
                              prev-rank next-rank))
                    (t
+                    (org-rank--log "auto-init: fill run [%d,%d) between %S..%S"
+                                   run-start run-end prev-rank next-rank)
                     (condition-case err
                         (cl-loop for item in (cl-subseq items run-start run-end)
                                   for r    in (org-rank--split prev-rank next-rank run-len)
@@ -232,6 +260,7 @@ Preserves the current visual order.  Use when ranks become too dense."
 
 (defun org-rank-move (delta)
   "Swap RANK of current agenda item with neighbor DELTA positions away."
+  (org-rank--log "move delta=%d" delta)
   (let* ((cur-marker (org-get-at-bol 'org-marker)))
     (unless cur-marker (user-error "No org item at point"))
     ;; Ensure every visible item has a rank before swapping.
@@ -249,6 +278,7 @@ Preserves the current visual order.  Use when ranks become too dense."
                (cur-pos    (marker-position cur-marker))
                (r1 (org-with-point-at cur-marker (org-rank--get)))
                (r2 (org-with-point-at nei-marker (org-rank--get))))
+          (org-rank--log "move: idx=%d nei-idx=%d r1=%S r2=%S" idx nei-idx r1 r2)
           ;; 兜底：auto-init 对「视觉顺序 != rank 顺序」的 run 是跳过的
           ;; （见 org-rank--auto-init 里的 prev >= next 分支），所以这里
           ;; 仍可能遇到 r1/r2 为 nil 或两者相等的情况。直接 rebalance
@@ -284,21 +314,63 @@ Preserves the current visual order.  Use when ranks become too dense."
 (setq org-agenda-cmp-user-defined #'org-rank-cmp)
 (add-hook 'org-agenda-finalize-hook #'org-rank--auto-init)
 
-;; Prepend user-defined-up to every agenda sorting strategy so rank is respected.
-;; 只对非 agenda 类型注入 user-defined-up，保留 agenda 视图的 time-of-day 优先排序
-(with-eval-after-load 'org-agenda
-  (dolist (entry org-agenda-sorting-strategy)
-    (unless (or (memq (car entry) '(agenda))
-                (memq 'user-defined-up (cdr entry)))
-      (setcdr entry (cons 'user-defined-up (cdr entry))))))
+;; 强制 user-defined-up 参与排序。
+;;
+;; 历史教训（为什么前两版都失效）：
+;;   v1：改全局 `org-agenda-sorting-strategy'。custom command 里的 :option
+;;       override、用户后续 setq 都能覆盖它。
+;;   v2：:around advice 包 `org-agenda-finalize-entries', let-bind
+;;       `org-agenda-sorting-strategy'。——但 `org-entries-lessp' 用的是
+;;       `org-agenda-sorting-strategy-selected'（flat list），这个变量早在
+;;       每个 agenda command 里由 `org-set-sorting-strategy' 从 alist 里
+;;       挑出来 setq 了。advice 改的不是 sort 那一步读的变量，所以
+;;       `user-defined-up' 从来没进 -selected，`org-rank-cmp' 一次都没跑。
+;;
+;; 现方案：:after advice 钉在 `org-set-sorting-strategy' 上。这个函数就是
+;; 专门写 `-selected' 的唯一入口，advice 在它 setq 完之后紧接着把
+;; `user-defined-up' 塞到首位。任何后续的 sort 一定读到我们改过的值。
+(defun org-rank--ensure-selected (&rest _)
+  "把 `user-defined-up' 顶到 `org-agenda-sorting-strategy-selected' 首位。"
+  (setq org-agenda-sorting-strategy-selected
+        (cons 'user-defined-up
+              (remq 'user-defined-up
+                    (remq 'user-defined-down
+                          org-agenda-sorting-strategy-selected))))
+  (org-rank--log "sorting-strategy-selected = %S"
+                 org-agenda-sorting-strategy-selected))
 
-;; Use buffer-local evil bindings (highest priority, beats evil-org-agenda globals).
-;; evil-org-agenda-set-keys binds M-j/k to the non-persistent built-in drag commands;
-;; evil-local-set-key in a mode hook wins over those global motion-state bindings.
+(with-eval-after-load 'org-agenda
+  (advice-add 'org-set-sorting-strategy :after #'org-rank--ensure-selected))
+
+;; Rebind J/K (and M-j/M-k) in org-agenda. 三层保险：
+;;   1. `with-eval-after-load 'org-agenda'` 直接 `define-key` 到
+;;      `org-agenda-mode-map'。这是最底层的 map，evil 任何 state 回落
+;;      都能命中。evil-org-agenda 的 motion-state aux map 优先级高于
+;;      base map，但当 aux map 里没绑（或被清掉）时就走这里。
+;;   2. `with-eval-after-load 'evil-org-agenda'` 在 motion/normal state
+;;      aux map 里顶掉 evil-org-agenda 默认的 priority(J/K) 和 drag(M-j/M-k)。
+;;      (没改就会被 drag 抢走：按了能动但 rebuild 复位。)
+;;   3. `org-agenda-mode-hook` + buffer-local 兜底，防止后续包覆盖 aux map。
+(with-eval-after-load 'org-agenda
+  (define-key org-agenda-mode-map (kbd "J")   #'org-rank-move-down)
+  (define-key org-agenda-mode-map (kbd "K")   #'org-rank-move-up)
+  (define-key org-agenda-mode-map (kbd "M-j") #'org-rank-move-down)
+  (define-key org-agenda-mode-map (kbd "M-k") #'org-rank-move-up))
+
+(with-eval-after-load 'evil-org-agenda
+  (evil-define-key '(motion normal) org-agenda-mode-map
+    (kbd "J")   #'org-rank-move-down
+    (kbd "K")   #'org-rank-move-up
+    (kbd "M-j") #'org-rank-move-down
+    (kbd "M-k") #'org-rank-move-up))
+
 (add-hook 'org-agenda-mode-hook
           (lambda ()
-            (evil-local-set-key 'motion (kbd "M-j") #'org-rank-move-down)
-            (evil-local-set-key 'motion (kbd "M-k") #'org-rank-move-up)))
+            (dolist (state '(motion normal))
+              (evil-local-set-key state (kbd "J")   #'org-rank-move-down)
+              (evil-local-set-key state (kbd "K")   #'org-rank-move-up)
+              (evil-local-set-key state (kbd "M-j") #'org-rank-move-down)
+              (evil-local-set-key state (kbd "M-k") #'org-rank-move-up))))
 
 (provide 'init-org-rank)
 ;;; init-org-rank.el ends here

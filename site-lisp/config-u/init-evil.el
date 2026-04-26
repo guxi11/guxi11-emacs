@@ -167,6 +167,7 @@
 	"cw" 'activities-switch
 	"cm" 'activities-rename
 	"cv" 'activities-revert
+	"cx" 'activities-discard
 	;;
 	"nn" 'evil-search-highlight-persist-remove-all
     ;; roam
