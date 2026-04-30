@@ -138,6 +138,7 @@ The test for presence of the car of ELT-CONS is done with `equal'."
                     ("\\.h$" . c++-mode)
                     ("\\.bc$" . hexl-mode)
                     ("\\.json$" . json-mode)
+                    ("\\.[Cc][Ss][Vv]\\'" . csv-mode)
                     ))
   (add-to-alist 'auto-mode-alist elt-cons))
 
@@ -152,6 +153,8 @@ The test for presence of the car of ELT-CONS is done with `equal'."
 (autoload 'js-mode "init-web-mode")
 (autoload 'typescript-mode "typescript-mode")
 (autoload 'json-mode "json-mode")
+(autoload 'csv-mode "csv-mode")
+(add-hook 'csv-mode-hook 'csv-align-fields)
 
 ;;; ### Auto-fill ###
 ;;; --- 自动换行

@@ -256,12 +256,21 @@
   (interactive)
   (vterm-send-string "\e"))
 
+;; 在 vterm 中让 C-v 直接传递给终端（否则会被 evil 等 map 劫持成前缀键）
+(defun vterm-send-C-v ()
+  "Send C-v directly to vterm terminal."
+  (interactive)
+  (vterm-send-string "\C-v"))
+
 (evil-define-key 'normal vterm-mode-map (kbd "C-a") 'vterm-send-C-a)
 (evil-define-key 'insert vterm-mode-map (kbd "C-a") 'vterm-send-C-a)
 (evil-define-key 'normal vterm-mode-map (kbd "<escape>") 'vterm-send-ESC)
 (evil-define-key 'insert vterm-mode-map (kbd "<escape>") 'vterm-send-ESC)
 (evil-define-key 'normal vterm-mode-map (kbd "M-<escape>") 'vterm-send-ESC)
 (evil-define-key 'insert vterm-mode-map (kbd "M-<escape>") 'vterm-send-ESC)
+(evil-define-key 'normal vterm-mode-map (kbd "C-v") 'vterm-send-C-v)
+(evil-define-key 'insert vterm-mode-map (kbd "C-v") 'vterm-send-C-v)
+(evil-define-key 'emacs  vterm-mode-map (kbd "C-v") 'vterm-send-C-v)
 
 ;;(add-hook
 ;; 'evil-normal-state-entry-hook (lambda () (set-face-background 'hl-line "#304157")))

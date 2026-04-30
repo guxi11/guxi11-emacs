@@ -7,20 +7,20 @@
 
 (use-package vterm
   :ensure t
+  ;; vterm-keymap-exceptions 必须通过 customize 设置，用 setq 不会触发其 :set
+  ;; 导致 vterm-mode-map 不会 unbind 这些键，C-v 等仍然会被 vterm 拦截
+  :custom
+  (vterm-keymap-exceptions
+   '("C-c" "C-x" "C-u" "C-g" "C-h" "C-l" "M-x" "M-o" "C-v" "M-v" "C-y" "C-a" "M-:" "<escape>" "M-<escape>"))
   :config
   (setq vterm-max-scrollback 10000)
   (setq vterm-always-compile-module t)
   ;; 优化 vterm 性能：0.01 可能导致重绘过于频繁，0.04 是一个平衡点
   (setq vterm-timer-delay 0.04)
-  
+
   ;; 设置 vterm 启动时使用登录shell以获取完整的nvm环境
   ;; 使用 -l 参数确保加载 .zshrc/.bashrc 等配置文件
   (setq vterm-shell (concat (or (getenv "SHELL") "/bin/zsh") " -l"))
-
-  ;; 解决tmux命令前缀导致的'buffer is readonly'问题
-  ;; 允许tmux命令前缀（如Ctrl+a）和ESC键通过vterm
-  (setq vterm-keymap-exceptions
-        '("C-c" "C-x" "C-u" "C-g" "C-h" "C-l" "M-x" "M-o" "C-v" "M-v" "C-y" "C-a" "M-:" "<escape>" "M-<escape>"))
   ;; 确保 vterm 的键映射不拦截 C-a 和 ESC
   (add-hook 'vterm-mode-hook
             (lambda ()
@@ -29,6 +29,8 @@
                 (define-key vterm-mode-map (kbd "C-a") 'vterm-send-C-a))
               (when (fboundp 'vterm-send-ESC)
                 (define-key vterm-mode-map (kbd "<escape>") 'vterm-send-ESC))
+              (when (fboundp 'vterm-send-C-v)
+                (define-key vterm-mode-map (kbd "C-v") 'vterm-send-C-v))
               (define-key vterm-mode-map (kbd "M-v") 'vterm-yank)
               (define-key vterm-mode-map (kbd "M-:") 'eval-expression)))
 

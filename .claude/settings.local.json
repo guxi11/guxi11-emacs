@@ -48,7 +48,9 @@
       "Read(//tmp/**)",
       "Bash(git commit *)",
       "Bash(git branch *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(git submodule *)",
+      "Bash(gunzip *)"
     ]
   }
 }
