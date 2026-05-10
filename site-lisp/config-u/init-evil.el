@@ -118,7 +118,7 @@
 			(diff-hl-show-hunk-next)
 			(evil-emacs-state)))
     ;; bookmark
-    "rh" 'helm-bookmarks
+    "rh" 'bookmark-bmenu-list
     "rb" 'bookmark-jump
     "rs" 'bookmark-set
     "rd" 'bookmark-delete

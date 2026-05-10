@@ -32,7 +32,17 @@
   (:repeat-map my-claude-code-map ("M" . claude-code-cycle-mode)))
 
 (setq claude-code-terminal-backend 'vterm)
-(setq claude-code-program (expand-file-name "~/.local/bin/claude"))
+
+;; tmux-backed persistence (independent module under site-lisp/extensions).
+;; Per-machine values (claude binary path, etc.) live in <repo-root>/.env;
+;; see .env.example for the template.  Falls back to defaults if absent.
+(require 'claude-tmux-persist)
+(setq claude-tmux-persist-env-file
+      (expand-file-name
+       "../../.env"
+       (file-name-directory (or load-file-name buffer-file-name))))
+(setq claude-tmux-persist-restore-on-startup t)
+(claude-tmux-persist-mode 1)
 
 (add-to-list 'display-buffer-alist
                  '("^\\*claude"

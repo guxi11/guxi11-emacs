@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# claude-tmux — wrap a `claude`-compatible CLI in a per-buffer tmux session
+# so conversations persist across the launching client's lifecycle.
+#
+# Driven by env vars:
+#   CLAUDE_BUFFER_NAME    set by claude-code.el; used to derive session name
+#   CLAUDE_TMUX_BIN       binary to wrap (default: claude)
+#   CLAUDE_TMUX_SOCKET    tmux -L socket name (default: claude-emacs)
+#
+# Positional args ("$@") are forwarded verbatim to the binary.
+
+set -euo pipefail
+
+raw="${CLAUDE_BUFFER_NAME:-claude-default}"
+session="$(printf '%s' "$raw" | tr -c 'A-Za-z0-9_-' '_')"
+bin="${CLAUDE_TMUX_BIN:-claude}"
+socket="${CLAUDE_TMUX_SOCKET:-claude-emacs}"
+
+# Optional diagnostic log: tail -f /tmp/claude-tmux-persist.log to inspect
+# every wrapper invocation (buffer name → session name, attach vs create).
+log="${CLAUDE_TMUX_LOG:-/tmp/claude-tmux-persist.log}"
+{
+  printf '[%s] buffer=%q  →  socket=%s  session=%s  bin=%s  args=%q\n' \
+    "$(date '+%F %T')" "$raw" "$socket" "$session" "$bin" "$*"
+  if tmux -L "$socket" has-session -t "$session" 2>/dev/null; then
+    printf '         existing session — will ATTACH\n'
+  else
+    printf '         no such session — will CREATE\n'
+  fi
+} >>"$log" 2>&1 || true
+
+# Write session → (buffer_name, cwd) into registry for restore-on-restart.
+# Append-only; duplicate entries for the same session are harmless — elisp
+# takes the last record per session when reading.
+registry="${CLAUDE_TMUX_REGISTRY:-/tmp/claude-tmux-persist.registry}"
+printf '%s\t%s\t%s\n' "$session" "${CLAUDE_BUFFER_NAME:-}" "${PWD}" >> "$registry" 2>/dev/null || true
+
+# Set server options and attach/create the session in a single tmux invocation.
+# Separating `set -g` into a prior call does NOT work: tmux exits when a
+# no-session server has no clients, so the next `new-session` starts a fresh
+# server that never saw the options.  Command-chaining with \; keeps the same
+# client connection alive, so the options are guaranteed to be applied.
+exec tmux -L "$socket" \
+  set -g status     off \; \
+  set -g escape-time  0 \; \
+  set -g mouse       on \; \
+  new-session -A -s "$session" -- "$bin" "$@"
