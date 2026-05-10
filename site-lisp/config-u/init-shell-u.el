@@ -15,8 +15,8 @@
   :config
   (setq vterm-max-scrollback 10000)
   (setq vterm-always-compile-module t)
-  ;; 优化 vterm 性能：0.01 可能导致重绘过于频繁，0.04 是一个平衡点
-  (setq vterm-timer-delay 0.04)
+  ;; 0.1s batches terminal writes; reduces claude-cli multi-line input flicker
+  (setq vterm-timer-delay 0.1)
 
   ;; 设置 vterm 启动时使用登录shell以获取完整的nvm环境
   ;; 使用 -l 参数确保加载 .zshrc/.bashrc 等配置文件
@@ -75,6 +75,39 @@
                  (direction . right)
                  (window-width . 90)
                  (reusable-frames . visible))))
+
+;; Buffer burst escape sequences from claude-cli to prevent input-box flicker.
+;; Detects multi-line redraws (cursor movement + line-clear sequences) and
+;; holds them for 50ms before flushing as one batch to vterm--filter.
+(defvar-local my/vterm-burst-buffer nil)
+(defvar-local my/vterm-burst-timer nil)
+
+(defun my/vterm-burst-filter (orig-fun process input)
+  (with-current-buffer (process-buffer process)
+    (if (or (and (>= (cl-count ?\033 input) 3)
+                 (or (string-match-p "\033\\[K" input)
+                     (string-match-p "\033\\[[0-9]+;[0-9]+H" input)
+                     (string-match-p "\033\\[[0-9]*[ABCD]" input)))
+             my/vterm-burst-buffer)
+        (progn
+          (setq my/vterm-burst-buffer (concat my/vterm-burst-buffer input))
+          (when my/vterm-burst-timer (cancel-timer my/vterm-burst-timer))
+          (setq my/vterm-burst-timer
+                (run-at-time 0.05 nil
+                             (lambda (buf)
+                               (when (buffer-live-p buf)
+                                 (with-current-buffer buf
+                                   (when my/vterm-burst-buffer
+                                     (let ((data my/vterm-burst-buffer))
+                                       (setq my/vterm-burst-buffer nil
+                                             my/vterm-burst-timer nil)
+                                       (funcall orig-fun
+                                                (get-buffer-process buf)
+                                                data))))))
+                             (current-buffer))))
+      (funcall orig-fun process input))))
+
+(advice-add 'vterm--filter :around #'my/vterm-burst-filter)
 
 (provide 'init-shell-u)
 ;;; init-shell-u.el ends here

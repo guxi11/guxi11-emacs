@@ -22,7 +22,6 @@
 ;;(require 'init-company)
 (require 'init-chinese-anniversary)
 (require 'init-key-u)
-(require 'init-ai)
 (require 'init-vue)
 (require 'init-css-mode-u)
 (require 'init-org-rank)
