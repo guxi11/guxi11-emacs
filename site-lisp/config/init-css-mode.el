@@ -85,11 +85,7 @@
 
 ;;; Code:
 
-(dolist (hook (list
-               'css-mode-hook))
-  (add-hook hook #'(lambda ()
-                     (require 'rainbow-mode)
-                     (rainbow-mode))))
+;; Color preview now provided by `colorful-mode' (see init-css-mode-u.el).
 
 (provide 'init-css-mode)
 

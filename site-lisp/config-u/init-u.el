@@ -24,6 +24,7 @@
 (require 'init-key-u)
 (require 'init-ai)
 (require 'init-vue)
+(require 'init-css-mode-u)
 (require 'init-org-rank)
 (require 'init-theme)
 (provide 'init-u)
