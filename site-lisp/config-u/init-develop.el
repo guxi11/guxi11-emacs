@@ -102,5 +102,10 @@
 (require 'mermaid-mode)
 (setq mermaid-flags "-s 3")
 
+(defun my/mermaid-compile-file ()
+  "Compile the current file with mmdc, no prompt."
+  (interactive)
+  (mermaid-compile-file (buffer-file-name)))
+
 (provide 'init-develop)
 ;;; init-develop.el ends here
