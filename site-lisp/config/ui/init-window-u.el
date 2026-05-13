@@ -136,8 +136,8 @@
   (interactive)
   (my/set-frame-geometry))
 
-(add-hook 'after-make-frame-functions #'my/set-frame-geometry)
-(add-hook 'after-init-hook            #'my/set-frame-geometry)
+(add-hook 'after-make-frame-functions #'my/set-frame-center)
+(add-hook 'after-init-hook            #'my/set-frame-center)
 
 (provide 'init-window-u)
 ;;; init-window.el ends here
