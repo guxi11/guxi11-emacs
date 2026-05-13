@@ -127,7 +127,6 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 
 (setq org-display-remote-inline-images 'download) ;; Emacs 29+
 (setq org-startup-with-inline-images t) ;; "always display inline image"
-(setq org-image-actual-width 600) ;; "set width of image when displaying"
 (setq org-outline-path-complete-in-steps nil)
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")

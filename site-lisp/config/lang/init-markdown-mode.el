@@ -91,7 +91,6 @@
    ("M-b" . deno-bridge-jieba-backward-word)
    ("M-M" . deno-bridge-jieba-kill-word)
    ("M-N" . deno-bridge-jieba-backward-kill-word)
-   ("C-c C-c" . eaf-markdown-previewer-open)
    )
  markdown-mode-map)
 

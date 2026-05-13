@@ -23,8 +23,6 @@
 (global-set-key (kbd "M-v") 'yank) ;; overwrite scroll up
 (global-set-key (kbd "C-c C-o") 'org-open-at-point)
 
-;; Org 截图：从剪贴板粘贴图片
-(global-set-key (kbd "C-c p") 'org-download-clipboard)
 
 ;;(define-key global-map (kbd "C-c") (make-sparse-keymap)) ; https://emacs.stackexchange.com/a/54792
 ;; (global-set-key (kbd "C-c ;") 'comment-or-uncomment-region) ; 为选中的代码加注释/去注释

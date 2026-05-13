@@ -149,6 +149,7 @@
     ;; link
     "op" 'org-open-at-point
     "ol" 'my/open-link-at-point
+    "oi" 'org-download-clipboard
     ;; counsel
     "F" 'counsel-projectile-grep
     "s" 'counsel-projectile-ag
