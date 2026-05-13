@@ -26,6 +26,9 @@
           "https_proxy" "http_proxy" "all_proxy" "HTTPS_PROXY" "HTTP_PROXY"))
   (exec-path-from-shell-initialize))
 
+(use-package flx
+  :ensure t)
+
 (use-package counsel
   :ensure t)
 
@@ -42,6 +45,11 @@
   (setq ivy-extra-directories nil)      ; 优化性能，不显示 . 和 ..
   (setq ivy-on-del-error-function #'ignore)
   (setq ivy-dynamic-exhibit-delay-ms 20)
+  ;; M-x 真模糊匹配：输入 "pkins" 能匹配 "package-install"，flx 负责智能排序
+  (setq ivy-re-builders-alist
+        '((counsel-M-x . ivy--regex-fuzzy)
+          (t . ivy--regex-plus)))
+  (setq ivy-initial-inputs-alist nil)  ; 去掉 M-x 默认的 "^" 前缀，否则模糊失效
   :bind
   (("C-s" . 'swiper)
    ("C-x b" . 'ivy-switch-buffer)   ("C-c v" . 'ivy-push-view)
