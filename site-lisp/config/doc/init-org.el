@@ -284,7 +284,49 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 (require 'org-roam-dailies)
 ;; reduce GC pauses during the initial sync
 (setq org-roam-db-gc-threshold most-positive-fixnum)
+
+;; Defer the heavy initial db-sync (hashes all org files) to idle time,
+;; then process changed files one-by-one via idle timers — never blocks UI.
+(defun my/org-roam-db-sync-noop (&rest _) nil)
+(advice-add 'org-roam-db-sync :override #'my/org-roam-db-sync-noop)
 (org-roam-db-autosync-mode)
+(advice-remove 'org-roam-db-sync #'my/org-roam-db-sync-noop)
+
+(defvar my/org-roam-pending-sync nil "Files pending incremental sync.")
+
+(defun my/org-roam-db-sync-incremental ()
+  "Collect modified org-roam files, then process them one at a time via idle timers."
+  (let* ((org-roam-files (org-roam-list-files))
+         (current-files (org-roam-db--get-current-files))
+         (modified nil))
+    ;; find modified/new files
+    (dolist (file org-roam-files)
+      (let ((hash (org-roam-db--file-hash file)))
+        (unless (string= (gethash file current-files) hash)
+          (push file modified)))
+      (remhash file current-files))
+    ;; clear removed files (fast, just DB deletes)
+    (emacsql-with-transaction (org-roam-db)
+      (dolist (file (hash-table-keys current-files))
+        (org-roam-db-clear-file file)))
+    ;; queue modified files for incremental processing
+    (setq my/org-roam-pending-sync (nreverse modified))
+    (my/org-roam-db-sync-next)))
+
+(defun my/org-roam-db-sync-next ()
+  "Process one pending file, schedule next via idle timer."
+  (when my/org-roam-pending-sync
+    (let ((file (pop my/org-roam-pending-sync)))
+      (condition-case err
+          (org-roam-db-update-file file)
+        (error
+         (org-roam-db-clear-file file)
+         (lwarn 'org-roam :error "Failed to process %s: %s" file (error-message-string err)))))
+    (if my/org-roam-pending-sync
+        (run-with-idle-timer 0.2 nil #'my/org-roam-db-sync-next)
+      (message "org-roam: incremental sync done"))))
+
+(run-with-idle-timer 2 nil #'my/org-roam-db-sync-incremental)
 
 ;; immediate create
 (defun org-roam-node-insert-immediate (arg &rest args)
