@@ -94,6 +94,7 @@
          (require 'init-yasnippet)
          (require 'init-org)
          (require 'init-eww)
+         (require 'init-olivetti)
          (message "-- hi")
          ))))
 
