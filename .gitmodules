@@ -78,17 +78,9 @@ url = https://github.com/manateelazycat/lsp-bridge
 path = site-lisp/extensions/emacs-websocket
 url = https://github.com/ahyatt/emacs-websocket
 
-[submodule "site-lisp/extensions/deno-bridge"]
-path = site-lisp/extensions/deno-bridge
-url = https://github.com/manateelazycat/deno-bridge
-
 [submodule "site-lisp/extensions/yasnippet"]
 path = site-lisp/extensions/yasnippet
 url = https://github.com/joaotavora/yasnippet
-
-[submodule "site-lisp/extensions/deno-bridge-jieba"]
-path = site-lisp/extensions/deno-bridge-jieba
-url = https://github.com/ginqi7/deno-bridge-jieba
 
 [submodule "site-lisp/extensions/blink-search"]
 path = site-lisp/extensions/blink-search
@@ -97,10 +89,6 @@ url = https://github.com/manateelazycat/blink-search
 [submodule "site-lisp/extensions/visual-regexp"]
 path = site-lisp/extensions/visual-regexp
 url = https://github.com/benma/visual-regexp.el
-
-[submodule "site-lisp/extensions/smex"]
-path = site-lisp/extensions/smex
-url = https://github.com/nonsequitur/smex
 
 [submodule "site-lisp/extensions/markmacro"]
 path = site-lisp/extensions/markmacro

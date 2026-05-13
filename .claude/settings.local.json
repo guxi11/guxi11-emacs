@@ -53,7 +53,10 @@
       "Bash(gunzip *)",
       "Bash(gh issue:*)",
       "Bash(dd *)",
-      "Bash(ln -s ~/guxi11-emacs/site-start.el ~/.emacs)"
+      "Bash(ln -s ~/guxi11-emacs/site-start.el ~/.emacs)",
+      "Bash(python3 *)",
+      "Skill(update-config)",
+      "Bash(git mv *)"
     ]
   }
 }

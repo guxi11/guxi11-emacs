@@ -30,15 +30,18 @@ M-x treesit-install-language-grammar
 
 ### Bootstrap Sequence
 1. `~/.emacs` → symlinked to `site-start.el`
-2. `site-start.el` → sets PATH, recursively adds `site-lisp/` to load-path, loads EAF, then `init` and `init-u`
-3. `site-lisp/config/init.el` → core config with GC optimizations and deferred loading via `run-with-idle-timer`
-4. `site-lisp/config-u/init-u.el` → user-specific customizations (evil mode, theme, AI tools)
+2. `site-start.el` → sets PATH, recursively adds `site-lisp/` to load-path, then `init`
+3. `site-lisp/config/init.el` → unified entry point with GC optimizations and deferred loading
 
 ### Directory Structure
-- `site-lisp/config/` - Core lazycat configurations (`init-*.el` files)
-- `site-lisp/config-u/` - User customizations (`init-*-u.el` files)
+- `site-lisp/config/core/` - Startup acceleration, generic settings, font, packages
+- `site-lisp/config/editor/` - Keybindings, evil, indentation, auto-save, mode associations
+- `site-lisp/config/completion/` - LSP bridge, blink-search, yasnippet, eldoc
+- `site-lisp/config/lang/` - Web-mode, CSS, TypeScript, Vue, treesit, markdown
+- `site-lisp/config/ui/` - Theme, mode-line, tab-bar, icons, window management
+- `site-lisp/config/tools/` - Shell, org-mode, development utilities, eww
 - `site-lisp/extensions/` - External packages (mostly git submodules)
-- `site-lisp/extensions/lazycat/` - Custom utilities by lazycat (200+ files)
+- `site-lisp/extensions/lazycat/` - Custom utilities by lazycat
 - `site-lisp/treesit-grammer/` - Compiled tree-sitter grammar libraries
 
 ### Key Patterns
@@ -63,8 +66,8 @@ M-x treesit-install-language-grammar
 ## Key Bindings Reference
 
 The main prefix key is `C-z`. Key bindings are defined in:
-- `site-lisp/config/init-key.el` - Core keybindings
-- `site-lisp/config-u/init-key-u.el` - User keybindings
+- `site-lisp/config/editor/init-key.el` - Core keybindings
+- `site-lisp/config/editor/init-key-u.el` - User keybindings
 
 Notable bindings:
 - `C-c t` - Toggle vterm
