@@ -118,10 +118,8 @@
 			(diff-hl-show-hunk-next)
 			(evil-emacs-state)))
     ;; bookmark
-    "rh" 'bookmark-bmenu-list
-    "rb" 'bookmark-jump
+    "rb" 'counsel-bookmark          ; 模糊搜索+跳转，M-o d 删除
     "rs" 'bookmark-set
-    "rd" 'bookmark-delete
     ;; anzu
    	"pq" 'anzu-query-replace
 	"pr" 'anzu-query-replace-regexp
