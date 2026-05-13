@@ -1,5 +1,11 @@
 (setq custom-file (expand-file-name "~/.emacs.d/custom.el"))
 
+;; Suppress file-name-handler-alist during startup for faster requires
+(defvar my/saved-file-name-handler-alist file-name-handler-alist)
+(setq file-name-handler-alist nil)
+(add-hook 'emacs-startup-hook
+          (lambda () (setq file-name-handler-alist my/saved-file-name-handler-alist)))
+
 (setenv "PATH" (concat "/opt/homebrew/bin:" (getenv "HOME") "/.pyenv/shims:" (getenv "PATH")))
 (setq exec-path (cons "/opt/homebrew/bin" (cons (concat (getenv "HOME") "/.pyenv/shims") exec-path)))
 

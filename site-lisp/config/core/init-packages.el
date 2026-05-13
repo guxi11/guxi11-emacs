@@ -16,6 +16,7 @@
 
 (use-package exec-path-from-shell
   :ensure t
+  :defer t
   :if (memq window-system '(mac ns x)))
 
 (when (memq window-system '(mac ns x))
@@ -24,7 +25,8 @@
   (setq exec-path-from-shell-variables
         '("PATH" "MANPATH" "NVM_DIR" "NODE_VERSION" "CLAUDE_CODE_OAUTH_TOKEN"
           "https_proxy" "http_proxy" "all_proxy" "HTTPS_PROXY" "HTTP_PROXY"))
-  (exec-path-from-shell-initialize))
+  ;; defer shell spawn to idle time
+  (run-with-idle-timer 0.5 nil #'exec-path-from-shell-initialize))
 
 (use-package flx
   :ensure t)
@@ -34,6 +36,7 @@
 
 (use-package ivy
   :ensure t
+  :defer 0.5
   :init
   (ivy-mode 1)
   (counsel-mode 1)
@@ -63,6 +66,7 @@
 ;; ivy 卡死：通常是由于 ivy-use-virtual-buffers 开启后，recentf 列表中包含了无法访问的远程文件（如 SSH、TRAMP 路径）。当 ivy 尝试检查这些文件是否存在时，会导致 Emacs 界面冻结。此外，ivy-posframe 在处理大量数据或快速输入时也可能引起性能问题。
 (use-package recentf
   :ensure t
+  :defer 1
   :init
   (recentf-mode 1)
   :config
@@ -94,6 +98,7 @@
 ;; 记录历史
 (use-package amx
   :ensure t
+  :defer 1
   :init (amx-mode))
 
 ;; 跳转
@@ -146,6 +151,7 @@
 
 (use-package which-key
   :ensure t
+  :defer 1
   :init (which-key-mode))
 
 ;; filter, select, act
@@ -156,11 +162,14 @@
 
 (use-package highlight-symbol
   :ensure t
-  :init (highlight-symbol-mode)
-  :bind ("C-c h" . highlight-symbol)) ;; 高亮当前符号
+  :defer t
+  :hook (prog-mode . highlight-symbol-mode)
+  :bind ("C-c h" . highlight-symbol))
 
 (use-package projectile
   :ensure t
+  :defer t
+  :commands (projectile-project-root projectile-command-map)
   :bind (("s-p" . 'projectile-command-map))
   :config
   (setq projectile-mode-line "Projectile")
@@ -182,8 +191,11 @@
 
 (use-package counsel-projectile
   :ensure t
+  :defer t
   :after (projectile)
-  :init (counsel-projectile-mode))
+  :commands (counsel-projectile-mode counsel-projectile-grep counsel-projectile-ag)
+  :init
+  (with-eval-after-load 'projectile (counsel-projectile-mode)))
 
 (setq counsel-async-command-delay 0.3)
 (setq which-key-idle-delay 0.3
@@ -191,6 +203,8 @@
 
 (use-package magit
   :ensure t
+  :defer t
+  :commands (magit-status magit-file-dispatch magit-get-current-branch magit-toplevel magit-log-buffer-file)
   :config
   (setq magit-diff-refine-hunk 'all)
   ;; 优化全屏显示，使用官方推荐的函数
@@ -318,25 +332,29 @@
 
 (use-package diff-hl
   :ensure t
+  :defer t
+  :hook (find-file . diff-hl-mode)
   :config
   (global-diff-hl-mode)
   ;; (if (not (display-graphic-p)) diff-hl-margin-mode)
   ;; (diff-hl-margin-mode)
   )
 
-(add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-(add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+(with-eval-after-load 'magit
+  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
 
-;; 强力的chaggpt 配置，能够刷新状态
-(defun my-diff-hl-magit-post-refresh ()
-  (dolist (buf (buffer-list))
-    (with-current-buffer buf
-      (when diff-hl-mode
-        (diff-hl-update)))))
-(add-hook 'magit-post-refresh-hook #'my-diff-hl-magit-post-refresh)
+  ;; 强力的chaggpt 配置，能够刷新状态
+  (defun my-diff-hl-magit-post-refresh ()
+    (dolist (buf (buffer-list))
+      (with-current-buffer buf
+        (when diff-hl-mode
+          (diff-hl-update)))))
+  (add-hook 'magit-post-refresh-hook #'my-diff-hl-magit-post-refresh))
 
 (use-package nerd-icons
-  :ensure t)
+  :ensure t
+  :defer t)
 
 (use-package treemacs
   :ensure t
@@ -418,10 +436,13 @@
 
 (use-package xclip
   :ensure t
+  :defer 1
   :init (xclip-mode))
 
 (use-package cal-china-x
   :ensure t
+  :defer t
+  :commands (calendar)
   :config
   (setq calendar-mark-holidays-flag t)
   (setq cal-china-x-important-holidays cal-china-x-chinese-holidays)

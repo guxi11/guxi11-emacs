@@ -349,6 +349,7 @@
 ;; Smart Input Source - auto switch to English when leaving insert mode
 (use-package sis
   :ensure t
+  :defer 2
   :config
   (sis-ism-lazyman-config
    "com.apple.keylayout.ABC"            ; English
@@ -361,10 +362,12 @@
   :ensure t)
 
 (use-package highlight
-  :ensure t)
+  :ensure t
+  :defer t)
 
 (use-package evil-search-highlight-persist
   :ensure t
+  :defer 2
   :config
   ;; To only display string whose length is greater than or equal to 3
   ;; (setq evil-search-highlight-string-min-len 3)

@@ -80,8 +80,39 @@
 ;;
 
 ;;; Require
+;; 在 lsp-bridge 加载前先 load 我们的 v2 覆盖版本，
+;; 这样 lsp-bridge 内部 (require 'acm-backend-org-roam) 时 feature 已存在，会跳过上游 v1。
+(let ((our-file (expand-file-name "acm-backend-org-roam" (file-name-directory load-file-name))))
+  (message "[acm-org-roam] loading v2 override from: %s" our-file)
+  (load our-file))
 (require 'lsp-bridge)
 (require 'lsp-bridge-jdtls)
+
+;; acm-update-candidates 里 org-roam 后端被 acm-in-roam-bracket-p 守卫，
+;; 必须在 [[ 里面才触发。用 advice 让 org-mode 下无条件注入 org-roam 候选。
+;; keyword 用行首到光标的文本，支持空格分词模糊匹配。
+
+(defvar my/acm-org-roam-keyword ""
+  "当前 org-roam 补全使用的完整 keyword（含空格）。")
+
+(defun my/acm-org-roam-get-line-keyword ()
+  "取当前行行首到光标的全部文本作为 keyword。"
+  (buffer-substring-no-properties (line-beginning-position) (point)))
+
+(defun my/acm-inject-org-roam-candidates (orig-fn)
+  "Advice: 在 org-mode 下始终把 org-roam 候选混入补全结果。"
+  (let ((result (funcall orig-fn)))
+    (when (and acm-enable-org-roam
+               (derived-mode-p 'org-mode)
+               (featurep 'org-roam))
+      (let* ((keyword (my/acm-org-roam-get-line-keyword))
+             (roam-candidates (acm-backend-org-roam-candidates keyword)))
+        (setq my/acm-org-roam-keyword keyword)
+        (when roam-candidates
+          (setq result (append result roam-candidates)))))
+    result))
+
+(advice-add 'acm-update-candidates :around #'my/acm-inject-org-roam-candidates)
 
 ;;; Code:
 
@@ -107,7 +138,7 @@
 (setq lsp-bridge-semantic-tokens t)
 (setq-default lsp-bridge-semantic-tokens-ignore-modifier-limit-types ["variable"])
 
-(setq lsp-bridge-default-mode-hooks (delete 'markdown-mode-hook))
+(setq lsp-bridge-default-mode-hooks (delete 'markdown-mode-hook lsp-bridge-default-mode-hooks))
 
 (global-lsp-bridge-mode)
 

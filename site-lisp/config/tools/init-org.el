@@ -89,9 +89,8 @@
 (require 'init-chinese-anniversary)
 (require 'init-org-download)
 
-;; org-mode 不需要 lsp-bridge
-(with-eval-after-load 'lsp-bridge
-  (remove-hook 'org-mode-hook #'lsp-bridge-mode))
+;; org-mode 保留 lsp-bridge-mode（ACM 的 org-roam 后端需要），
+;; lsp-bridge 找不到 org 对应的 LSP server 时只是跳过，不会报错。
 
 (setq org-directory (file-truename "~/org/"))
 (setq org-agenda-files '("~/org/tencent/" "~/org/roam/journal/capture.org" "~/org/roam/journal/DaysMatter.org" "~/org/refile.org"))

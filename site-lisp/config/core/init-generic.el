@@ -112,7 +112,9 @@
 (setq word-wrap-by-category t)             ;按照中文折行
 (setq enable-local-variables :all)         ;不要问 .dir-locals 的问题
 
-(add-hook 'find-file-hook 'highlight-parentheses-mode t) ;增强的括号高亮
+(add-hook 'find-file-hook #'(lambda ()
+                              (require 'highlight-parentheses)
+                              (highlight-parentheses-mode t)) t)
 
 (setq completion-auto-select nil)       ;避免默认自动选择
 

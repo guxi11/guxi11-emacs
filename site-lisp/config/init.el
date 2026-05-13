@@ -52,20 +52,6 @@
     (require 'init-evil)
 
     ;; ============================================================
-    ;; Completion - LSP, search, snippets
-    ;; ============================================================
-    (require 'init-lsp-bridge)
-
-    ;; ============================================================
-    ;; Lang - treesit, TypeScript, Vue, CSS, web-mode
-    ;; ============================================================
-    (require 'init-treesit)
-    (require 'init-ts-fold)
-    (require 'init-typescript-u)
-    (require 'init-vue)
-    (require 'init-css-mode-u)
-
-    ;; ============================================================
     ;; UI - theme, mode-line, icons, windows, activities
     ;; ============================================================
     (require 'init-mode-line-light)
@@ -74,19 +60,21 @@
     (require 'init-theme)
 
     ;; ============================================================
-    ;; Tools - shell, org, development utilities
-    ;; ============================================================
-    (require 'init-shell-u)
-    (require 'init-develop)
-    (require 'init-chinese-anniversary)
-    (require 'init-org-rank)
-
-    ;; ============================================================
-    ;; Lazy-loaded (idle timer)
+    ;; Deferred (idle 1s) - completion, lang, tools, misc
     ;; ============================================================
     (run-with-idle-timer
      1 nil
      #'(lambda ()
+         (require 'init-lsp-bridge)
+         (require 'init-treesit)
+         (require 'init-ts-fold)
+         (require 'init-typescript-u)
+         (require 'init-vue)
+         (require 'init-css-mode-u)
+         (require 'init-shell-u)
+         (require 'init-develop)
+         (require 'init-chinese-anniversary)
+         (require 'init-org-rank)
          (require 'pretty-lambdada)
          (require 'browse-kill-ring)
          (require 'elf-mode)
@@ -95,7 +83,7 @@
          (require 'init-org)
          (require 'init-eww)
          (require 'init-olivetti)
-         (message "-- hi")
+         (message "-- hi (startup: %s)" (emacs-init-time))
          ))))
 
 (provide 'init)

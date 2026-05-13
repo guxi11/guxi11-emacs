@@ -69,6 +69,7 @@
 ;; (use-package transient :ensure t) ;; 已经被依赖了
 (use-package aider
   :ensure t
+  :defer t
   :config
   ;; For latest claude sonnet model
   (setq aider-args '("--model" "deepseek" "--no-auto-accept-architect" "--no-auto-commits"))
@@ -86,6 +87,7 @@
 
 (use-package aidermacs
   :ensure t
+  :defer t
   :bind (("C-c a" . aidermacs-transient-menu))
   :config
   ; Set API_KEY in .bashrc, that will automatically picked up by aider or in elisp
@@ -99,8 +101,8 @@
   (aidermacs-default-model "deepseek"))
 
 ;; mermaid-mode
-(require 'mermaid-mode)
-(setq mermaid-flags "-s 3")
+(with-eval-after-load 'mermaid-mode
+  (setq mermaid-flags "-s 3"))
 
 (defun my/mermaid-compile-file ()
   "Compile the current file with mmdc, no prompt."
