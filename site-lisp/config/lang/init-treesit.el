@@ -174,6 +174,9 @@
 (add-hook 'haskell-mode-hook #'(lambda () (treesit-parser-create 'haskell)))
 (add-hook 'kotlin-mode-hook #'(lambda () (treesit-parser-create 'kotlin)))
 (add-hook 'ruby-mode-hook #'(lambda () (treesit-parser-create 'ruby)))
+(add-hook 'markdown-mode-hook #'(lambda ()
+                                  (treesit-parser-create 'markdown)
+                                  (treesit-parser-create 'markdown-inline)))
 
 (provide 'init-treesit)
 

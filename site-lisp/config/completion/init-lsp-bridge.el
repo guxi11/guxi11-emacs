@@ -107,6 +107,8 @@
 (setq lsp-bridge-semantic-tokens t)
 (setq-default lsp-bridge-semantic-tokens-ignore-modifier-limit-types ["variable"])
 
+(setq lsp-bridge-default-mode-hooks (delete 'markdown-mode-hook))
+
 (global-lsp-bridge-mode)
 
 (add-to-list 'lsp-bridge-multi-lang-server-extension-list '(("html") . "html_tailwindcss"))
