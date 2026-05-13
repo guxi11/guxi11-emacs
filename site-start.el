@@ -1,3 +1,5 @@
+(setq custom-file (expand-file-name "~/.emacs.d/custom.el"))
+
 (setenv "PATH" (concat "/opt/homebrew/bin:" (getenv "HOME") "/.pyenv/shims:" (getenv "PATH")))
 (setq exec-path (cons "/opt/homebrew/bin" (cons (concat (getenv "HOME") "/.pyenv/shims") exec-path)))
 
@@ -38,6 +40,14 @@
         (add-subdirs-to-load-path subdir-path)))))
 
 (add-subdirs-to-load-path "~/guxi11-emacs/site-lisp/")
+
+;; package-initialize must run before init.el (lsp-bridge requires markdown-mode from elpa)
+(require 'package)
+(setq package-archives
+      '(("gnu"   . "https://elpa.gnu.org/packages/")
+        ("melpa" . "https://melpa.org/packages/")
+        ("melpa-stable" . "https://stable.melpa.org/packages/")))
+(package-initialize)
 
 (setq exec-path-from-shell-arguments nil) ;; use non-interactive , in ~/.zshenv
 (when (memq window-system '(mac ns x))

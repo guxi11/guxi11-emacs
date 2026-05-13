@@ -51,7 +51,9 @@
       "Bash(git push *)",
       "Bash(git submodule *)",
       "Bash(gunzip *)",
-      "Bash(gh issue:*)"
+      "Bash(gh issue:*)",
+      "Bash(dd *)",
+      "Bash(ln -s ~/guxi11-emacs/site-start.el ~/.emacs)"
     ]
   }
 }

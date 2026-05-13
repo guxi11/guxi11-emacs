@@ -12,20 +12,7 @@
 
 (require 'package)
 
-;; Proxy settings for iOA (Uncomment and set your proxy address if needed)
-;; (setq url-proxy-services
-;;    '(("no_proxy" . "^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)")
-;;      ("http" . "127.0.0.1:8899")
-;;      ("https" . "127.0.0.1:8899")))
-
-(setq package-archives
-      '(("gnu"   . "https://elpa.gnu.org/packages/")
-        ("melpa" . "https://melpa.org/packages/")))
-                                        ;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-;;Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
-;;and `package-pinned-packages`. Most users will not need or want to do this.
-(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-(package-initialize)
+;; package-initialize already called in site-start.el
 
 (use-package exec-path-from-shell
   :ensure t

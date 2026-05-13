@@ -28,8 +28,5 @@
 (require 'init-theme)
 (provide 'init-u)
 
-;;(setq custom-file "~/.emacs.d/custom.el")
-;;(load custom-file)
-
 ;;; init-u.el ends here
 

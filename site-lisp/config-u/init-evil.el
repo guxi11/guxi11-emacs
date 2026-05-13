@@ -230,7 +230,6 @@
     "p" 'multi-vterm-prev
     "n" 'multi-vterm-next
     "P" 'multi-vterm-project
-    "f" 'toggle-frame-fullscreen ;; fullscreen
     "c" 'my/set-frame-center
     "r" 'my/set-frame-right
     "s" 'my/set-frame-reset
