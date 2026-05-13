@@ -87,6 +87,7 @@
 (setq-default ispell-program-name nil)
 
 (require 'init-chinese-anniversary)
+(require 'init-org-download)
 
 ;; org-mode 不需要 lsp-bridge
 (with-eval-after-load 'lsp-bridge

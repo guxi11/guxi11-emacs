@@ -139,3 +139,6 @@ url = https://github.com/rejeep/f.el.git
 [submodule "site-lisp/extensions/csv-mode"]
 	path = site-lisp/extensions/csv-mode
 	url = https://github.com/emacsmirror/csv-mode.git
+[submodule "site-lisp/extensions/org-download"]
+	path = site-lisp/extensions/org-download
+	url = https://github.com/abo-abo/org-download.git

@@ -92,6 +92,7 @@
 (setq acm-enable-capf t)
 (setq acm-enable-quick-access t)
 (setq acm-backend-yas-match-by-trigger-keyword t)
+(setq acm-enable-org-roam t)
 (setq acm-backend-order '("template-first-part-candidates"
                           "mode-first-part-candidates"
                           "tabnine-candidates"
