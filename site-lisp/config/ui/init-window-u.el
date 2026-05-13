@@ -117,18 +117,18 @@
     (set-frame-size     f cols rows)))
 
 (defun my/set-frame-center ()
-  "Half width and half height, centered, with margins."
+  "2/3 width and 2/3 height, centered, with margins."
   (interactive)
   (let* ((f  (selected-frame))
          (wa (my/workarea))
          (wa-x (nth 0 wa)) (wa-y (nth 1 wa))
          (wa-w (nth 2 wa)) (wa-h (nth 3 wa))
-         (half-w (/ wa-w 2)) (half-h (/ wa-h 2))
+         (fw (/ (* wa-w 2) 3)) (fh (/ (* wa-h 2) 3))
          (cw (frame-char-width f)) (ch (frame-char-height f))
-         (cols (/ (- half-w my/frame-margin-left my/frame-margin-right) cw))
-         (rows (/ (- half-h my/frame-margin-top  my/frame-margin-bottom) ch)))
-    (set-frame-position f (+ wa-x (/ wa-w 4) my/frame-margin-left)
-                          (+ wa-y (/ wa-h 4) my/frame-margin-top))
+         (cols (/ (- fw my/frame-margin-left my/frame-margin-right) cw))
+         (rows (/ (- fh my/frame-margin-top  my/frame-margin-bottom) ch)))
+    (set-frame-position f (+ wa-x (/ (- wa-w fw) 2) my/frame-margin-left)
+                          (+ wa-y (/ (- wa-h fh) 2) my/frame-margin-top))
     (set-frame-size     f cols rows)))
 
 (defun my/set-frame-reset ()
