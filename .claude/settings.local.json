@@ -56,7 +56,8 @@
       "Bash(ln -s ~/guxi11-emacs/site-start.el ~/.emacs)",
       "Bash(python3 *)",
       "Skill(update-config)",
-      "Bash(git mv *)"
+      "Bash(git mv *)",
+      "Bash(git *)"
     ]
   }
 }
