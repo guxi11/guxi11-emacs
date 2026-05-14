@@ -29,6 +29,11 @@
             (message "不是支持的链接类型: %s" type))))
       (message "光标不在链接上"))))
 
+(defun tab-close-first ()
+  "Close the first tab in the current frame."
+  (interactive)
+  (tab-bar-close-tab 1))
+
 (setq evil-mode-line-format nil)
 (setq evil-mode-line-tag nil)
 
@@ -118,8 +123,8 @@
 			(diff-hl-show-hunk-next)
 			(evil-emacs-state)))
     ;; bookmark
-    "rb" 'counsel-bookmark          ; 模糊搜索+跳转，M-o d 删除
-    "rs" 'bookmark-set
+    "m" 'bookmark-set
+    "j" 'counsel-bookmark          ; 模糊搜索+跳转，C-k 删除（与 switch-to-buffer 对齐）
     ;; anzu
    	"pq" 'anzu-query-replace
 	"pr" 'anzu-query-replace-regexp
@@ -182,7 +187,7 @@
     "ndy" 'org-roam-dailies-capture-yesterday
     ;; kill
     "ke" 'kill-emacs
-    "ko" 'tab-close-other
+    "kf" 'tab-close-first
     )
   (define-prefix-command 'my-lsp-map)
   (keymap-set evil-normal-state-map "s" 'my-lsp-map)
@@ -392,6 +397,30 @@
 (add-hook 'org-mode-hook
           (lambda ()
             (evil-local-set-key 'normal (kbd "TAB") 'org-cycle)))
+
+;; counsel-bookmark: C-k 删除当前候选，行为对齐 ivy-switch-buffer-kill
+(with-eval-after-load 'counsel
+  (defun my/ivy-bookmark-kill ()
+    (interactive)
+    (let ((bm (ivy-state-current ivy-last)))
+      (when (bookmark-get-bookmark bm t)
+        (bookmark-delete bm)
+        (setq ivy--all-candidates (delete bm ivy--all-candidates))
+        (ivy--exhibit))))
+
+  (defvar my/counsel-bookmark-map
+    (let ((map (make-sparse-keymap)))
+      (define-key map (kbd "C-k") 'my/ivy-bookmark-kill)
+      map))
+
+  (advice-add 'counsel-bookmark :around
+              (lambda (orig &rest args)
+                (minibuffer-with-setup-hook
+                    (lambda ()
+                      (use-local-map
+                       (make-composed-keymap my/counsel-bookmark-map
+                                             (current-local-map))))
+                  (apply orig args)))))
 
 (provide 'init-evil)
 ;;; init-evil.el ends here
