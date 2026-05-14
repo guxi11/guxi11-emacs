@@ -2,7 +2,7 @@
 ;;; Code:
 
 ;; Add all config subdirectories to load-path
-(dolist (subdir '("core" "editor" "completion" "lang" "ui" "tools"))
+(dolist (subdir '("core" "editor" "completion" "lang" "ui" "tools" "doc"))
   (add-to-list 'load-path
                (expand-file-name subdir (file-name-directory (or load-file-name buffer-file-name)))))
 
