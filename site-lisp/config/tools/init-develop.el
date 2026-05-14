@@ -101,6 +101,7 @@
 (defun my/mermaid-compile-file ()
   "Compile the current file with mmdc, no prompt."
   (interactive)
+  (require 'mermaid-mode)
   (mermaid-compile-file (buffer-file-name)))
 
 (provide 'init-develop)
