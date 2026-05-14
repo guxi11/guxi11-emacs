@@ -59,11 +59,29 @@
     (require 'init-window-u)
     (require 'init-theme)
 
+    ;; org-roam DB sync blocks regardless — run at startup so user never sees mid-session freeze
+    (require 'init-chinese-anniversary)
+    (require 'init-org-rank)
+    (require 'init-org)
+
     ;; ============================================================
-    ;; Deferred (idle 1s) - completion, lang, tools, misc
+    ;; Deferred - truly non-blocking, safe to lazy-load
     ;; ============================================================
     (run-with-idle-timer
      1 nil
+     #'(lambda ()
+         (require 'pretty-lambdada)
+         (require 'browse-kill-ring)
+         (require 'elf-mode)
+         (require 'init-eldoc)
+         (require 'init-yasnippet)
+         (require 'init-shell-u)
+         (require 'init-develop)
+         (require 'init-eww)
+         (require 'init-olivetti)))
+
+    (run-with-idle-timer
+     2 nil
      #'(lambda ()
          (require 'init-lsp-bridge)
          (require 'init-treesit)
@@ -71,20 +89,7 @@
          (require 'init-typescript-u)
          (require 'init-vue)
          (require 'init-css-mode-u)
-         (require 'init-shell-u)
-         (require 'init-develop)
-         (require 'init-chinese-anniversary)
-         (require 'init-org-rank)
-         (require 'pretty-lambdada)
-         (require 'browse-kill-ring)
-         (require 'elf-mode)
-         (require 'init-eldoc)
-         (require 'init-yasnippet)
-         (require 'init-org)
-         (require 'init-eww)
-         (require 'init-olivetti)
-         (message "-- hi (startup: %s)" (emacs-init-time))
-         ))))
+         (message "-- hi (startup: %s)" (emacs-init-time))))))
 
 (provide 'init)
 ;;; init.el ends here

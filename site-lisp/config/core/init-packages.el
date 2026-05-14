@@ -23,7 +23,7 @@
   (require 'cache-path-from-shell)
   (setq exec-path-from-shell-arguments nil) ;; use non-interactive , in ~/.zshenv
   (setq exec-path-from-shell-variables
-        '("PATH" "MANPATH" "NVM_DIR" "NODE_VERSION" "CLAUDE_CODE_OAUTH_TOKEN"
+        '("PATH" "MANPATH" "NVM_DIR" "NODE_VERSION"
           "https_proxy" "http_proxy" "all_proxy" "HTTPS_PROXY" "HTTP_PROXY"))
   ;; defer shell spawn to idle time
   (run-with-idle-timer 0.5 nil #'exec-path-from-shell-initialize))

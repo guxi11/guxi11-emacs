@@ -282,6 +282,8 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 (setq org-roam-dailies-directory "journal/")
 (setq org-roam-completion-everywhere t)
 (require 'org-roam-dailies)
+;; reduce GC pauses during the initial sync
+(setq org-roam-db-gc-threshold most-positive-fixnum)
 (org-roam-db-autosync-mode)
 
 ;; immediate create
