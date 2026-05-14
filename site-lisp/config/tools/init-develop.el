@@ -66,25 +66,6 @@
   (kill-new (magit-get-current-branch)))
 
 ;; AI
-;; (use-package transient :ensure t) ;; 已经被依赖了
-(use-package aider
-  :ensure t
-  :defer t
-  :config
-  ;; For latest claude sonnet model
-  (setq aider-args '("--model" "deepseek" "--no-auto-accept-architect" "--no-auto-commits"))
-  ;; (setenv "ANTHROPIC_API_KEY" "sk-")
-  ;; (setenv "DEEPSEEK_API_KEY" "sk-")
-  ;; Or gemini model
-  ;; (setq aider-args '("--model" "gemini"))
-  ;; (setenv "GEMINI_API_KEY" <your-gemini-api-key>)
-  ;; Or chatgpt model
-  ;; (setq aider-argsonal config file
-  ;; (setq aider-args `("--config" ,(expand-file-name "~/.aider.conf.yml")))
-  ;; ;;
-  ;; Optional: Set a key binding for the transient menu
-  (global-set-key (kbd "C-c a") 'aider-transient-menu))
-
 (use-package aidermacs
   :ensure t
   :defer t

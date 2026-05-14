@@ -1,4 +1,6 @@
 (setq custom-file (expand-file-name "~/.emacs.d/custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file t))
 
 ;; Suppress file-name-handler-alist during startup for faster requires
 (defvar my/saved-file-name-handler-alist file-name-handler-alist)
