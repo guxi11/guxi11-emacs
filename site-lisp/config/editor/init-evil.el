@@ -230,19 +230,16 @@
   (keymap-set evil-normal-state-map "t" 'my-multi-vterm-map)
   (evil-define-key nil my-multi-vterm-map
     "t" 'my/multi-vterm-toggle
-    "j" 'multi-vterm ;; create
-    "p" 'multi-vterm-prev
-    "n" 'multi-vterm-next
-    "P" 'multi-vterm-project
-    "c" 'my/set-frame-center
-    "r" 'my/set-frame-right
-    "s" 'my/set-frame-reset
     )
   ;; rest
   (define-prefix-command 'my-rest-map)
   (keymap-set evil-normal-state-map "r" 'my-rest-map)
   (evil-define-key nil my-rest-map
     "f" 'refresh-file
+    ;; frame
+    "c" 'my/set-frame-center
+    "r" 'my/set-frame-right
+    "s" 'my/set-frame-reset
 	)
   )
 
