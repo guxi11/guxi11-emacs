@@ -111,22 +111,22 @@
 
   (defun aw-copy-relative-path (window)
     "Copy the relative path of WINDOW's buffer without switching to it."
-    (let ((buf (window-buffer window)))
+    (let* ((buf  (window-buffer window))
+           (root (vc-root-dir))
+           (root (unless (string= (expand-file-name root) (expand-file-name "~/")) root)))
       (if (buffer-file-name buf)
-          (let ((path (file-relative-name
-                       (buffer-file-name buf)
-                       (projectile-project-root))))
+          (let ((path (file-relative-name (buffer-file-name buf) root)))
             (kill-new path)
             (message "Copied: %s" path))
         (message "Window has no file"))))
 
   (defun aw-copy-and-yank-relative-path (window)
     "Copy the relative path of WINDOW's buffer and insert at point."
-    (let ((buf (window-buffer window)))
+    (let* ((buf  (window-buffer window))
+           (root (vc-root-dir))
+           (root (unless (string= (expand-file-name root) (expand-file-name "~/")) root)))
       (if (buffer-file-name buf)
-          (let ((path (file-relative-name
-                       (buffer-file-name buf)
-                       (projectile-project-root))))
+          (let ((path (file-relative-name (buffer-file-name buf) root)))
             (kill-new path)
             (if (derived-mode-p 'vterm-mode)
                 (progn

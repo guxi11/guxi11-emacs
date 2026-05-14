@@ -53,7 +53,12 @@
 (defun my/relative-path ()
   "copy relative path";;https://emacs.stackexchange.com/a/45424
   (interactive)
-  (kill-new (file-relative-name buffer-file-name (projectile-project-root))))
+  (let ((root (vc-root-dir)))
+    (message "DEBUG my/relative-path: vc-root-dir=%s expanded=%s default-directory=%s buffer-file-name=%s"
+             root (when root (expand-file-name root)) default-directory buffer-file-name)
+    (kill-new (file-relative-name
+               buffer-file-name
+               (unless (string= (expand-file-name root) (expand-file-name "~/")) root)))))
 
 (defun my/absolute-path ()
   "copy absolute path"
@@ -66,20 +71,14 @@
   (kill-new (magit-get-current-branch)))
 
 ;; AI
-(use-package aidermacs
-  :ensure t
-  :defer t
-  :bind (("C-c a" . aidermacs-transient-menu))
-  :config
-  ; Set API_KEY in .bashrc, that will automatically picked up by aider or in elisp
-  ;; (setenv "ANTHROPIC_API_KEY" "sk-...")
-  ; defun my-get-openrouter-api-key yourself elsewhere for security reasons
-  ;; (setenv "OPENROUTER_API_KEY" (my-get-openrouter-api-key))
-  ;; (setq aidermacs-show-diff-after-change -1)
-  :custom
-  ; See the Configuration section below
-  (aidermacs-default-chat-mode 'architect)
-  (aidermacs-default-model "deepseek"))
+;; (use-package aidermacs
+;;   :ensure t
+;;   :defer t
+;;   :bind (("C-c a" . aidermacs-transient-menu))
+;;   :config
+;;   :custom
+;;   (aidermacs-default-chat-mode 'architect)
+;;   (aidermacs-default-model "deepseek"))
 
 ;; translate: word at point, or region if active
 (use-package go-translate

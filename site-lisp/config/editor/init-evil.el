@@ -225,12 +225,9 @@
     "p" 'treesit-fold-previous          ; customized
     "n" 'treesit-fold-next              ; customized
 	)
-  ;; vterm
-  (define-prefix-command 'my-multi-vterm-map)
-  (keymap-set evil-normal-state-map "t" 'my-multi-vterm-map)
-  (evil-define-key nil my-multi-vterm-map
-    "t" 'my/multi-vterm-toggle
-    )
+  ;; vterm / vtmux
+  (define-key evil-normal-state-map (kbd "t") 'vtmux-code-transient)
+  (define-key evil-visual-state-map (kbd "t") 'vtmux-code-transient)
   ;; rest
   (define-prefix-command 'my-rest-map)
   (keymap-set evil-normal-state-map "r" 'my-rest-map)
