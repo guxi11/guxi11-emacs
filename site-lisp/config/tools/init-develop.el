@@ -100,6 +100,20 @@
   (aidermacs-default-chat-mode 'architect)
   (aidermacs-default-model "deepseek"))
 
+;; translate: word at point, or region if active
+(use-package go-translate
+  :ensure t
+  :defer t
+  :bind (("s-t" . gt-do-translate)
+         ("s-T" . gt-do-translate-prompt))
+  :config
+  (setq gt-langs '(en zh))
+  (setq gt-default-translator
+        (gt-translator
+         :taker   (gt-taker :text 'word :pick nil)
+         :engines (list (gt-google-engine) (gt-bing-engine))
+         :render  (gt-buffer-render))))
+
 ;; mermaid-mode
 (with-eval-after-load 'mermaid-mode
   (setq mermaid-flags "-s 3"))
