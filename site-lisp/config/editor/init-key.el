@@ -8,12 +8,6 @@
 (lazy-load-unset-keys                   ;全局按键的卸载
  '("C-z" "C-q" "s-T" "s-W" "s-z" "M-h" "C-x C-c" "C-\\" "s-c" "s-x" "s-v" "C-6" "M-." "M-,"))
 
-(lazy-load-global-keys
- '(
-   ("s-R" . re-builder)                 ;可视化构建正则表达式
-   )
- "init-rebuilder")
-
 ;;; ### Color-Rg ###
 ;;; --- 搜索重构
 (lazy-load-global-keys
