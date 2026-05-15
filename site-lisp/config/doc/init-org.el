@@ -207,12 +207,12 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
       "")))
 
 (defun my/org-clock-sum-agenda-files (&rest _)
-  "Pre-compute today's clock sums for all agenda files."
+  "Pre-compute today's clock sums for agenda files already visited."
   (dolist (file (org-agenda-files))
-    (when (and (stringp file) (file-regular-p file))
-      (with-current-buffer (or (find-buffer-visiting file)
-                               (find-file-noselect file t))
-        (org-clock-sum-today)))))
+    (when-let ((buf (and (stringp file) (find-buffer-visiting file))))
+      (condition-case nil
+          (with-current-buffer buf (org-clock-sum-today))
+        (error nil)))))
 
 (advice-add 'org-agenda :before #'my/org-clock-sum-agenda-files)
 
@@ -273,6 +273,9 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                      )))
 
 (setq org-roam-v2-ack t)
+;; Disable org-element cache — Emacs 30 cache confuses byte/char positions
+;; on multi-byte (CJK) buffers, causing "Args out of range" in org-roam sync
+(setq org-element-use-cache nil)
 (setq org-roam-directory "~/org/roam")
 (setq org-roam-capture-templates
       '(("d" "default" plain
