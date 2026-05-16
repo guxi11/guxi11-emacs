@@ -99,6 +99,9 @@
 (setq pv/org-refile-file (concat org-directory "refile.org"))
 
 
+(require 'org-bars)
+(add-hook 'org-mode-hook #'org-bars-mode)
+
 (defun pv/init-org-hook ()
   (setq truncate-lines nil)
   (org-toggle-pretty-entities) ; display LaTeX symbols
