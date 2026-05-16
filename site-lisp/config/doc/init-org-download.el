@@ -8,7 +8,7 @@
 (setq org-download-screenshot-method "pngpaste %s")
 
 ;; 图片保存到当前 org 文件同级的 images/ 目录
-(setq org-download-image-dir "./images")
+(setq-default org-download-image-dir "./images")
 
 ;; 不按 heading 创建子目录
 (setq org-download-heading-lvl nil)
