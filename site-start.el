@@ -52,9 +52,9 @@
 ;; package-initialize must run before init.el (lsp-bridge requires markdown-mode from elpa)
 (require 'package)
 (setq package-archives
-      '(("gnu"   . "https://elpa.gnu.org/packages/")
-        ("melpa" . "https://melpa.org/packages/")
-        ("melpa-stable" . "https://stable.melpa.org/packages/")))
+      '(("gnu"   . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+        ("melpa" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+        ("melpa-stable" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/stable-melpa/")))
 (package-initialize)
 
 (setq exec-path-from-shell-arguments nil) ;; use non-interactive , in ~/.zshenv
