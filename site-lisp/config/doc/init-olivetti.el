@@ -102,10 +102,13 @@
                ))
   (add-hook hook
             #'(lambda ()
-                (when (buffer-file-name)
+                (when (and (buffer-file-name)
+                           (get-buffer-window (current-buffer)))
                   (unless (string-prefix-p "README" (file-name-base (buffer-file-name)))
                     (olivetti-mode 1)
                     (olivetti-set-width 120))))))
+
+(add-hook 'org-agenda-mode-hook #'(lambda () (olivetti-mode -1))))
 
 (provide 'init-olivetti)
 

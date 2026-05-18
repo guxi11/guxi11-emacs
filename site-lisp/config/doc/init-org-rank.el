@@ -312,7 +312,6 @@ Preserves the current visual order.  Use when ranks become too dense."
 ;;;; ── Wire up ────────────────────────────────────────────────────────────────
 
 (setq org-agenda-cmp-user-defined #'org-rank-cmp)
-(add-hook 'org-agenda-finalize-hook #'org-rank--auto-init)
 
 ;; 强制 user-defined-up 参与排序。
 ;;
