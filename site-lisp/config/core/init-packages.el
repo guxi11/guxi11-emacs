@@ -120,25 +120,8 @@
             (message "Copied: %s" path))
         (message "Window has no file"))))
 
-  (defun aw-copy-and-yank-relative-path (window)
-    "Copy the relative path of WINDOW's buffer and insert at point."
-    (let* ((buf  (window-buffer window))
-           (root (vc-root-dir))
-           (root (unless (string= (expand-file-name root) (expand-file-name "~/")) root)))
-      (if (buffer-file-name buf)
-          (let ((path (file-relative-name (buffer-file-name buf) root)))
-            (kill-new path)
-            (if (derived-mode-p 'vterm-mode)
-                (progn
-                  (evil-insert-state)
-                  (vterm-send-string (concat "@" path " ")))
-              (insert path))
-            (message "Yanked: %s" path))
-        (message "Window has no file"))))
-
   (setq aw-dispatch-alist
         '((?p aw-copy-relative-path "Copy Relative Path")
-          (?y aw-copy-and-yank-relative-path "Copy & Yank Path")
           (?x aw-delete-window "Delete Window")
           (?m aw-swap-window "Swap Windows")
           (?n aw-flip-window)
