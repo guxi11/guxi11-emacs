@@ -25,12 +25,28 @@
                 (string-match-p (regexp-quote (downcase word)) down-title))
               words)))
 
+(defvar acm-backend-org-roam--cache nil "Cached node list.")
+(defvar acm-backend-org-roam--cache-tick 0 "Time of last cache refresh.")
+(defcustom acm-backend-org-roam-cache-ttl 30
+  "Seconds before node-list cache expires."
+  :type 'integer
+  :group 'acm-backend-org-roam)
+
+(defun acm-backend-org-roam--get-nodes ()
+  "Return node list, refreshing cache if stale."
+  (let ((now (float-time)))
+    (when (or (null acm-backend-org-roam--cache)
+              (> (- now acm-backend-org-roam--cache-tick) acm-backend-org-roam-cache-ttl))
+      (setq acm-backend-org-roam--cache (org-roam-node-list)
+            acm-backend-org-roam--cache-tick now))
+    acm-backend-org-roam--cache))
+
 (defun acm-backend-org-roam-candidates (keyword)
   (when (and acm-enable-org-roam
              (featurep 'org-roam)
              (derived-mode-p 'org-mode)
              (not (string-empty-p keyword)))
-    (let* ((nodes (org-roam-node-list))
+    (let* ((nodes (acm-backend-org-roam--get-nodes))
            (match-nodes (seq-filter
                          (lambda (node)
                            (acm-backend-org-roam--multi-word-match-p

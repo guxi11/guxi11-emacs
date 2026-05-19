@@ -148,6 +148,3 @@ url = https://github.com/rejeep/f.el.git
 [submodule "site-lisp/extensions/vtmux-code"]
 	path = site-lisp/extensions/vtmux-code
 	url = git@github.com:guxi11/vtmux-code.git
-[submodule "site-lisp/extensions/org-bars"]
-	path = site-lisp/extensions/org-bars
-	url = https://github.com/tonyaldon/org-bars.git

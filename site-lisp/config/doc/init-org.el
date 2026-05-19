@@ -99,8 +99,6 @@
 (setq pv/org-refile-file (concat org-directory "refile.org"))
 
 
-(require 'org-bars)
-(add-hook 'org-mode-hook #'org-bars-mode)
 
 (defun pv/init-org-hook ()
   (setq truncate-lines nil)
@@ -276,9 +274,6 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                      )))
 
 (setq org-roam-v2-ack t)
-;; Disable org-element cache — Emacs 30 cache confuses byte/char positions
-;; on multi-byte (CJK) buffers, causing "Args out of range" in org-roam sync
-(setq org-element-use-cache nil)
 (setq org-roam-directory "~/org/roam")
 (setq org-roam-capture-templates
       '(("d" "default" plain
