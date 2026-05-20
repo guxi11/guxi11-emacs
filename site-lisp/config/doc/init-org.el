@@ -266,6 +266,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   (add-hook hook #'(lambda ()
                      (setq truncate-lines nil) ;默认换行
                      (electric-indent-local-mode -1) ;禁用自动缩进，防止 quote block 内容缩进
+                     (olivetti-mode 1)
 
                      (lazy-load-set-keys
                       '(
@@ -273,6 +274,8 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                         )
                       org-mode-map)
                      )))
+
+(add-hook 'org-agenda-mode-hook (lambda () (olivetti-mode -1)))
 
 (setq org-roam-v2-ack t)
 (setq org-roam-directory "~/org/roam")
