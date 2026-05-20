@@ -84,31 +84,20 @@
 
 ;;; Code:
 
+(setq-default olivetti-body-width 86)
+
 (dolist (hook (list
+               'prog-mode-hook
+               'text-mode-hook
+               'markdown-mode-hook
+               'org-mode-hook
                'Info-mode-hook
                'rcirc-mode-hook
                'eww-mode-hook
                ))
-  (add-hook hook
-            #'(lambda ()
-                (olivetti-mode 1)
-                (olivetti-set-width 120)
-                )))
+  (add-hook hook #'olivetti-mode))
 
-(dolist (hook (list
-               'text-mode-hook
-               'markdown-mode-hook
-               'org-mode-hook
-               ))
-  (add-hook hook
-            #'(lambda ()
-                (when (and (buffer-file-name)
-                           (get-buffer-window (current-buffer)))
-                  (unless (string-prefix-p "README" (file-name-base (buffer-file-name)))
-                    (olivetti-mode 1)
-                    (olivetti-set-width 120))))))
-
-(add-hook 'org-agenda-mode-hook #'(lambda () (olivetti-mode -1))))
+(add-hook 'org-agenda-mode-hook #'(lambda () (olivetti-mode -1)))
 
 (provide 'init-olivetti)
 

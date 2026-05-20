@@ -141,6 +141,7 @@
     "q" 'delete-window
     "z" 'zoom-window-zoom
     "oo" 'switch-to-buffer-other-window
+    "ot" 'olivetti-mode
     "1" 'delete-other-windows
     ;; treemacs
     "e" 'treemacs-select-window
