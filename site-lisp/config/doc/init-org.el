@@ -84,6 +84,7 @@
 
 ;;; Code:
 
+(setq org-element-use-cache nil)
 (setq-default ispell-program-name nil)
 
 (require 'init-chinese-anniversary)

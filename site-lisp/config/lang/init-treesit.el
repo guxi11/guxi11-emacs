@@ -114,7 +114,7 @@
         (markdown-inline . ("https://github.com/tree-sitter-grammars/tree-sitter-markdown" "split_parser" "tree-sitter-markdown-inline/src"))
         (ocaml . ("https://github.com/tree-sitter/tree-sitter-ocaml" nil "ocaml/src"))
         (org . ("https://github.com/milisims/tree-sitter-org"))
-        (python . ("https://github.com/tree-sitter/tree-sitter-python"))
+        (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.21.0"))
         (php . ("https://github.com/tree-sitter/tree-sitter-php"))
         (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" nil "typescript/src"))
         (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" nil "tsx/src"))
