@@ -148,6 +148,15 @@ Otherwise, return the buffer name."
           (format "  %s " name))
       "")))
 
+(defun my/get-major-mode (max-width)
+  "Return the major mode name resolved to a string, clipped to MAX-WIDTH.
+`mode-name' can be a composite mode-line construct (e.g. ELisp), so it
+is resolved with `format-mode-line' and truncated with an ellipsis."
+  (let ((name (string-trim (format-mode-line mode-name))))
+    (if (> (string-width name) max-width)
+        (concat (truncate-string-to-width name (1- max-width)) "…")
+      name)))
+
 (defun my/mode-line-fill (face reserve)
   "Return empty space using FACE and leaving RESERVE space on the right."
   (unless reserve (setq reserve 20))
@@ -186,8 +195,8 @@ Otherwise, return the buffer name."
                                 'mode-line-inactive)
                               35))
 
-   ;; Major Mode (Minimalist: No minor modes)
-   '(:eval (propertize (format " %s " mode-name)
+   ;; Major Mode (Minimalist: No minor modes, clipped to avoid overflow)
+   '(:eval (propertize (concat " " (my/get-major-mode 20) " ")
                        'face 'my-mode-line-major-mode))
 
    ;; Line:Column
