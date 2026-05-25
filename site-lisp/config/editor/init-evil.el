@@ -270,6 +270,15 @@
 (evil-define-key 'insert vterm-mode-map (kbd "C-v") 'vterm-send-C-v)
 (evil-define-key 'emacs  vterm-mode-map (kbd "C-v") 'vterm-send-C-v)
 
+(defun vterm-send-C-o ()
+  "Send C-o directly to vterm terminal."
+  (interactive)
+  (vterm-send-string "\C-o"))
+
+(evil-define-key 'normal vterm-mode-map (kbd "C-o") 'vterm-send-C-o)
+(evil-define-key 'insert vterm-mode-map (kbd "C-o") 'vterm-send-C-o)
+(evil-define-key 'emacs  vterm-mode-map (kbd "C-o") 'vterm-send-C-o)
+
 ;;(add-hook
 ;; 'evil-normal-state-entry-hook (lambda () (set-face-background 'hl-line "#304157")))
 
