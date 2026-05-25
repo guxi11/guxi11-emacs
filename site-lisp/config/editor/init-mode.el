@@ -121,6 +121,7 @@ The test for presence of the car of ELT-CONS is done with `equal'."
                     ("\\.json$" . json-ts-mode)
                     ("\\.jsonl$" . json-ts-mode)
                     ("\\.[Cc][Ss][Vv]\\'" . csv-mode)
+                    ("\\.sh$" . sh-mode)
                     ))
   (add-to-alist 'auto-mode-alist elt-cons))
 
