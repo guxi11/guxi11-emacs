@@ -27,6 +27,11 @@
 ;;(define-key global-map (kbd "C-c") (make-sparse-keymap)) ; https://emacs.stackexchange.com/a/54792
 ;; (global-set-key (kbd "C-c ;") 'comment-or-uncomment-region) ; 为选中的代码加注释/去注释
 
+(lazy-load-global-keys
+ '(("C-c y" . yd-translate-input)
+   ("C-c Y" . yd-translate-at-point))
+ "init-translate")
+
 (provide 'init-key-u)
 
 ;; init-key-u ends here
