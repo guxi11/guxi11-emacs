@@ -119,6 +119,7 @@ The test for presence of the car of ELT-CONS is done with `equal'."
                     ("\\.tsx$" . typescript-ts-mode)
                     ("\\.mts$" . typescript-ts-mode)
                     ("\\.json$" . json-ts-mode)
+                    ("\\.jsonl$" . json-ts-mode)
                     ("\\.[Cc][Ss][Vv]\\'" . csv-mode)
                     ))
   (add-to-alist 'auto-mode-alist elt-cons))
@@ -130,6 +131,21 @@ The test for presence of the car of ELT-CONS is done with `equal'."
 (autoload 'js-mode "init-web-mode")
 (autoload 'json-mode "json-mode")
 (autoload 'csv-mode "csv-mode")
+
+;;; JSON / JSONL beautify
+;;; - .json: 整 buffer pretty-print
+;;; - .jsonl: 逐行 pretty-print 会破坏 NDJSON 结构，所以只对当前行用 json-pretty-print
+(defun guxi/json-beautify ()
+  "Pretty-print JSON. For .jsonl, only the current line."
+  (interactive)
+  (if (and buffer-file-name (string-match-p "\\.jsonl\\'" buffer-file-name))
+      (json-pretty-print (line-beginning-position) (line-end-position))
+    (json-pretty-print-buffer)))
+
+(with-eval-after-load 'json-ts-mode
+  (define-key json-ts-mode-map (kbd "C-c C-f") #'guxi/json-beautify))
+(with-eval-after-load 'json-mode
+  (define-key json-mode-map (kbd "C-c C-f") #'guxi/json-beautify))
 (add-hook 'csv-mode-hook 'csv-align-fields)
 
 ;;; ### Auto-fill ###
