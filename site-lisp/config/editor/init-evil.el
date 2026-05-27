@@ -145,6 +145,8 @@
     "1" 'delete-other-windows
     ;; treemacs
     "e" 'treemacs-select-window
+    "oe" 'treemacs-find-file
+    "oa" 'treemacs-display-current-project-exclusively
     "t" 'treemacs
     ;; popweb
     "po" 'what-cursor-position

@@ -346,7 +346,7 @@
   ;; (treemacs-tag-follow-mode)
   (treemacs-follow-mode)
   (treemacs-git-mode 'deferred)
-  (treemacs-project-follow-mode)
+  ;; (treemacs-project-follow-mode)
   (treemacs-filewatch-mode)
   (treemacs-define-RET-action 'file-node-open   #'treemacs-visit-node-in-most-recently-used-window)
   (treemacs-define-RET-action 'file-node-closed #'treemacs-visit-node-in-most-recently-used-window)
