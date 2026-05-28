@@ -7,6 +7,13 @@
 ;;; ### no evil block ###
 ;;; --- 在没有evil模式的panel中使用
 
+(defun my/treemacs-show-current-project ()
+  "Show current project in treemacs without stealing focus."
+  (interactive)
+  (let ((win (selected-window)))
+    (treemacs-display-current-project-exclusively)
+    (select-window win)))
+
 (defun my/open-link-at-point ()
   "在光标处判断链接类型，http/https 用 EAF browser 打开，id: 用 org-roam 打开。"
   (interactive)
@@ -146,7 +153,7 @@
     ;; treemacs
     "e" 'treemacs-select-window
     "oe" 'treemacs-find-file
-    "oa" 'treemacs-display-current-project-exclusively
+    "oa" 'my/treemacs-show-current-project
     "t" 'treemacs
     ;; popweb
     "po" 'what-cursor-position
