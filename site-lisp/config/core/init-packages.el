@@ -190,6 +190,7 @@
   :commands (magit-status magit-file-dispatch magit-get-current-branch magit-toplevel magit-log-buffer-file)
   :config
   (setq magit-diff-refine-hunk 'all)
+  (add-hook 'magit-mode-hook #'visual-line-mode)
   ;; 优化全屏显示，使用官方推荐的函数
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
   ;; 优化 Push 体验：10秒内完成的命令不自动弹出 process buffer，减少干扰
