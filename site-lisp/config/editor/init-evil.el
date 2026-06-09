@@ -182,6 +182,7 @@
 	"cm" 'activities-rename
 	"cv" 'activities-revert
 	"cx" 'activities-discard
+	"r" 'activities-switch
 	;;
 	"nn" 'evil-search-highlight-persist-remove-all
     ;; roam
